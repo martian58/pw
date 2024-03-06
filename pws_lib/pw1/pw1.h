@@ -3,7 +3,7 @@
 #include <math.h>
 #include "../../src/constants.h"
 
-// Function to show the main menu
+// Function to show some fancy menu :)
 void show_pw1_menu() {
     printf("\n\n");
     printf("%s%s%s",GREEN,"************** PW 1  MENU ****************",RESET);
@@ -20,7 +20,7 @@ void show_pw1_menu() {
     printf("%s%s%s%s%s",YELLOW,"Important*->",RESET,WHITE,"Source codes of these exercises are in 'pws_lib/pw1' directory.");
     printf("%s", RESET);
 }
-
+//***************************************************************************************************************************************
 //EX 1
 
 // Function to calculate the GCD using Euclidean algorithm
@@ -31,13 +31,19 @@ int gcd(int a, int b) {
         return b;
     return gcd(b % a, a);
 }
-
+// Main function for gcd
 int main_gcd() {
     int a, b;
     int first_num_scanned;
     int second_num_scanned;
 
     // Input two positive integers from the user
+    /*
+        1. Make sure the user inputs only positive integers.
+        2. Use another variable (e.g 'num_scanned') to check if the input is valid.
+        3. If value is valid, then do the same for the second input.
+            Created by: Fuad Alizada 
+    */
     printf("%s%s%s",WHITE,"(gcd) Enter the first positive integer: ", RESET);
     first_num_scanned = scanf("%d", &a);
     if (first_num_scanned != 1 || a <= 0) {
@@ -63,9 +69,19 @@ int main_gcd() {
     return 0;
 }
 
-
+//*****************************************************************************************************************************************
 //EX 2
 
+/*
+    1. Quadratic equations can have 2, 1 or no real roots.
+    2. User's input can be non-integer.
+    3. Cases:
+            1. No real root if discriminant is below zero.
+            2. 2 identical roots (1 root) if discriminant is equal to zero.
+            3. 2 different roots if discriminant is above zero.
+
+        Created by: Fuad Alizada
+*/
 
 int quad() {
     float disc;//Discriminant
@@ -73,7 +89,7 @@ int quad() {
     float a, b, c;//Coefficients
 
     // Geting coefficients from the user
-    printf("%s%s%s",WHITE,"(quad) Enter coefficients 'a, b, c' of the quadratic equation:",RESET);
+    printf("%s%s%s",WHITE,"(quad) Enter coefficients 'a, b, c' (seperated by spaces):",RESET);
     scanf("%f %f %f", &a, &b, &c);
 
     // Calculating the discriminant
@@ -101,8 +117,16 @@ int quad() {
     //Return 0 if there was no errors
     return 0;
 }
-
+//**************************************************************************************************************************************
 //EX 3
+
+/*
+    1. Write a sigle function to calculate the abs. difference of two numbers.
+    2. Numbers can be non-integer.
+    3. Do not use built-in abs() function.
+        Created by: Fuad Alizada
+*/
+
 
 int abs_val() {
     double num1, num2;
@@ -123,6 +147,9 @@ int abs_val() {
     }
 
     // Calculate the absolute difference
+    /*
+        Find the greatest number and substract the smaller one from it.
+    */
     double absolute_difference = (num1 > num2) ? (num1 - num2) : (num2 - num1);
     printf("%s",GREEN);
     printf("(abs) The absolute difference between %.2f and %.2f is: %.2f\n", num1, num2, absolute_difference);
@@ -130,24 +157,35 @@ int abs_val() {
     return 0;
 }
 
-
+//*********************************************************************************************************************
 //EX 4
+
+/*
+    1. 1 inch is 2.54 cm and 1 m is 100 cm.
+    2. User must enter the amount and the unit as follows '<amount><unit>'
+    3. Example: 2i, 45m, 12c
+    4. program must convert the input and display it in cm and inches.
+    5. Use switch-cases for eficiency.
+        Created by: Fuad Alizada
+*/
+
+// Function for converting between units.
 void convert_length(float length, char unit) {
     float centimeters, inches;
 
     switch(unit) {
         case 'i':
-            centimeters = length * 2.54; // 1 inch = 2.54 cm
+            centimeters = length * 2.54; // 1 inch = 2.54 cm.
             printf("%.4f %c = %.4f cm\n", length, unit, centimeters);
             break;
         case 'm':
-            centimeters = length * 100; // 1 meter = 100 cm
-            inches = centimeters / 2.54; // Convert centimeters to inches
+            centimeters = length * 100; // 1 meter = 100 cm.
+            inches = centimeters / 2.54; // Convert centimeters to inches.
             printf("%.4f %c = %.4f cm\n", length, unit, centimeters);
             printf("%.4f %c = %.4f i\n", length, unit, inches);
             break;
         case 'c':
-            inches= length/2.54;
+            inches= length/2.54;//Convert centimeters to inches.
             printf("%.4f %c = %.4f i\n", length, unit, inches);
             break;
         default:
@@ -155,17 +193,19 @@ void convert_length(float length, char unit) {
 
     }
 }
-
+// Main Function of the convertor
 int conv() {
     float length;
     char unit;
 
-    
+    // Scan the inputs from the user
     printf("%s%s%s",WHITE,"(conv) Enter the length: ",RESET);
     scanf("%f%c", &length, &unit);
+    //Check if input is in valid fromat.
     if (unit == 'i' || unit == 'm' || unit == 'c') {
         convert_length(length, unit);
     } else {
+        // If input is in wrong format, then warn the user about this and show the correct version.
         printf("%s%s%s%s",RED,"(conv) Invalid unit. Please enter a valid unit-->",BLUE,"(i, m, or c).\n",RESET);
     }
     
