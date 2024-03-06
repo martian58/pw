@@ -15,6 +15,7 @@ To use the program, simply compile and run the `runme.c` file. Follow the on-scr
 
 ```bash
 gcc runme.c -o runme -lm
+./runme
 ```
 
 ## License
