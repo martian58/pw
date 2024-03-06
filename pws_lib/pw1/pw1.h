@@ -165,7 +165,7 @@ int abs_val() {
     2. User must enter the amount and the unit as follows '<amount><unit>'
     3. Example: 2i, 45m, 12c
     4. program must convert the input and display it in cm and inches.
-    5. Use switch-cases for eficiency.
+    5. Use switch-cases for efficiency.
         Created by: Fuad Alizada
 */
 
