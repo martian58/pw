@@ -6,11 +6,13 @@
 #include <unistd.h>
 
 //Local libs
-#include "pws_lib/pw1/pw1.h"
+#include "pws_lib/pw2/pw2.h"
+
+// Functions
 void pws_menu();
 void pw1_start();
 void controler();
-
+void pw2_start();
 
 // PW 1
 void pw1_start(){
@@ -46,6 +48,51 @@ void pw1_start(){
         }
     }
 }
+
+// PW 2
+
+void pw2_start(){
+    show_pw2_menu();
+    bool ex_is_set=false;
+    int ex_num;
+    while(!ex_is_set){
+        ex_num=get_int_input();
+        if(ex_num==1){
+            power();
+        }
+        else if(ex_num==2){
+            is_prime();
+        }
+        else if(ex_num==3){
+            days_in_month();
+        }
+        else if(ex_num==4){
+            bank();
+        }
+        else if (ex_num==5){
+            conv2();
+        }
+        else if(ex_num==6){
+            array_func();
+        }
+        else if(ex_num==7){
+            pws_menu();
+        }
+        else if(ex_num==8){
+            exit_program();
+        }
+        else if(ex_num==9){
+            system("clear");
+            pw2_start();
+        }
+        else{
+            
+            printf("%s%s%s",RED,"Invalid option!\n",RESET);
+        }
+    }
+}
+
+
 //PWs menu
 void pws_menu(){
     system("clear");
@@ -67,7 +114,11 @@ void pws_menu(){
             exit_program();
             option_is_set=true; 
         }
-        else if(option>1 && option<8){
+        else if(option==2){
+            system("clear");
+            pw2_start();
+        }
+        else if(option>2 && option<8){
             printf("%s%s%s",YELLOW,"Coming soon!\n",RESET);
         }
         else {

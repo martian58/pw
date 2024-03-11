@@ -1,3 +1,10 @@
+/*
+ * File:   pw1.h
+ * Author: Fuad Alizada
+ * Date:   March 05, 2024
+ * Description: Corresponding functions for Practical Work 1 of CS2.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -176,17 +183,23 @@ void convert_length(float length, char unit) {
     switch(unit) {
         case 'i':
             centimeters = length * 2.54; // 1 inch = 2.54 cm.
+            printf(GREEN);
             printf("%.4f %c = %.4f cm\n", length, unit, centimeters);
+            printf(RESET);
             break;
         case 'm':
             centimeters = length * 100; // 1 meter = 100 cm.
             inches = centimeters / 2.54; // Convert centimeters to inches.
+            printf(GREEN);
             printf("%.4f %c = %.4f cm\n", length, unit, centimeters);
             printf("%.4f %c = %.4f i\n", length, unit, inches);
+            printf(RESET);
             break;
         case 'c':
+            printf(GREEN);
             inches= length/2.54;//Convert centimeters to inches.
             printf("%.4f %c = %.4f i\n", length, unit, inches);
+            printf(RESET);
             break;
         default:
             printf("%s%s%s%s",RED,"(conv) Invalid unit. Please enter a valid unit-->",BLUE,"(i, m, or c).\n",RESET);
