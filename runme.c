@@ -93,6 +93,7 @@ void pw2_start(){
     }
 }
 
+// Terminal art
 void terminal_art_start(){
     terminal_art_menu();
     bool ex_is_set=false;
@@ -115,15 +116,6 @@ void terminal_art_start(){
             system("clear");
             terminal_art_start();
 
-        }
-        else if(ex_num==4){
-            bank();
-        }
-        else if (ex_num==5){
-            conv2();
-        }
-        else if(ex_num==6){
-            array_func();
         }
         else if(ex_num==7){
             pws_menu();
@@ -185,7 +177,9 @@ void controler(){
     int answer;
     bool answer_is_set=false;
     srand(time(NULL)); // Seed the random number generator
+    windows_os_detected();
     intro(); // Display the intro
+
     while(!answer_is_set){
         answer=get_int_input();
         if(answer == 2){

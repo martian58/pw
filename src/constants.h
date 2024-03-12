@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <unistd.h>
+#include <ctype.h>
+
 
 /*
     **Functions in this library**:
@@ -224,6 +226,28 @@ int detect_os() {
         // Unix-like system
         return 0;
     #endif
+}
+
+void windows_os_detected(){
+    int num_valid;
+    char option;
+    if(detect_os()==1){
+        printf("%sYou have Windows Os, Some functions are not gonna work%s\n",YELLOW,RESET);
+        do{
+            printf("%sDo you want to continue anyway(Y/n)?(not recommended): %s",YELLOW,RESET);
+            num_valid=scanf("%c",&option);
+            if(num_valid!=1){
+                printf("%sWrong input!%s\n",RED,RESET);
+            }else{
+                if(tolower(option)=='y'){
+                    continue;
+                }else{
+                    exit_program();
+                }
+            }
+        }while(num_valid!=1);
+        
+    }
 }
 
 // This function is for executing commands like 'pwd' 'ls' 'cd' inside this program.

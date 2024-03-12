@@ -2,8 +2,8 @@
 
 This program includes all the exercises of the Practical works. Source codes are in 'pws_lib' directory.
 
-- **Cross-Platform Compatibility**: The program is designed to run on multiple operating systems, including Windows, macOS
- and Unix-like systems. But unix-like systems are highly recommended.
+- **Cross-Platform Compatibility**: The program is designed to run on multiple operating systems, including macOS
+ and Unix-like systems. But unix-like systems are highly recommended. Windows is not supported.
 
 - **GitHub Integration**: You can easily access the GitHub repository of the project directly from the program interface.
 
