@@ -178,7 +178,6 @@ void controler(){
     bool answer_is_set=false;
     srand(time(NULL)); // Seed the random number generator
     windows_os_detected();
-    install_dependencies();
     intro(); // Display the intro
 
     while(!answer_is_set){

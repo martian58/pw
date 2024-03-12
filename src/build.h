@@ -123,6 +123,7 @@ int install_dependencies(){
     if(is_dependencies_installed()!=1){
         build_python();
         install_flask();
+    }else{
     }
     
     return 0;

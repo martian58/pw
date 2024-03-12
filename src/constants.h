@@ -66,7 +66,7 @@ void show_main_menu() {
     printf("%s%s%s",YELLOW,"8. Go back\n",RESET);
     printf("%s%s%s",RED,"9. Exit\n",RESET);
     printf("\n");
-    printf("%s**********************************************\n",GREEN);
+    printf("%s************** FUN STUFF ****************\n",GREEN);
     printf("\n");
     printf("%s%s%s",GREEN,"10. Terminal Art",RESET);
     printf("%s", RESET);
