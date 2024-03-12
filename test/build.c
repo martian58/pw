@@ -6,9 +6,20 @@
 
 #include "../src/constants.h"
 
+
 int is_python_installed() {
+    // Define the command string
+    char commnd[100];
+
+    // Choose the appropriate command based on the OS
+    if (detect_os() == 0) {
+        strcpy(commnd, "python3 --version");
+    } else {
+        strcpy(commnd, "python --version");
+    }
+
     // Try running the Python interpreter
-    FILE *fp = popen("python3 --version", "r");
+    FILE *fp = popen(commnd, "r");
     if (fp == NULL) {
         printf("Error: Unable to execute python command\n");
         return 0;  // Python is not installed or accessible
@@ -42,7 +53,7 @@ int build() {
             printf("python is installed.\n");
         } else{
             printf("Python needs to be installed!\n");
-            printf("You have Windows Os, I am not able to install python :(");
+            printf("You have Windows Os, I am not able to install python :(\n");
             printf("But you can download python from here --> https://www.python.org/downloads/");
         }
      }
