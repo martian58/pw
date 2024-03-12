@@ -21,6 +21,7 @@
     9. intro();
     10. detect_os();
     11. command_executer();
+    12. windows_os_detected();
 
     **Variables in this library**:
 
@@ -220,7 +221,6 @@ int detect_os() {
         return 1;
     // Check if compiling on macOS
     #elif defined(__APPLE__)
-    printf("macOS detected.\n");
         return 2;
     #else
         // Unix-like system
@@ -240,7 +240,8 @@ void windows_os_detected(){
                 printf("%sWrong input!%s\n",RED,RESET);
             }else{
                 if(tolower(option)=='y'){
-                    continue;
+                    printf("This program is written for Unix-like systems. Try running me on ubuntu :)");
+                    exit_program();
                 }else{
                     exit_program();
                 }

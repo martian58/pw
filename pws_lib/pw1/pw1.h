@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
-#include "../../src/constants.h"
+#include "../../src/build.h"
 
 // Function to show some fancy menu :)
 void show_pw1_menu() {
