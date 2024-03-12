@@ -1,3 +1,10 @@
+#include <stdio.h>
+#include <stdbool.h> 
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+#include <unistd.h>
+
 /*
     **Functions in this library**:
 
@@ -54,10 +61,26 @@ void show_main_menu() {
     printf("6. PW_6 (Coming soon)\n");
     printf("7. PW_7 (Coming soon)\n");
     printf("%s%s%s",YELLOW,"8. Go back\n",RESET);
-    printf("%s%s%s",RED,"9. Exit",RESET);
+    printf("%s%s%s",RED,"9. Exit\n",RESET);
+    printf("\n");
+    printf("%s**********************************************\n",GREEN);
+    printf("\n");
+    printf("%s%s%s",GREEN,"10. Terminal Art",RESET);
     printf("%s", RESET);
 }
-
+void terminal_art_menu() {
+    printf("\n\n");
+    printf("%s%s%s",GREEN,"**************  Terminal Art ****************",RESET);
+    printf("\n\n");
+    printf("%s%s%s",BLUE,"1. Rick The Dancer\n",RESET);
+    printf("%s%s",GREEN,"2. Parrot\n");
+    printf("%s", WHITE);
+    printf("3. Donut\n");
+    printf("%s%s%s",YELLOW,"7. Go back\n",RESET);
+    printf("%s%s%s",RED,"8. Exit\n",RESET);
+    printf("%s%s%s",GREEN,"9. Clear screen\n",RESET);
+    printf("%s", RESET);
+}
 // Function to exit the program.
 void exit_program(){
     printf("%s%s",YELLOW,"Exiting....\n");
@@ -169,6 +192,7 @@ void intro() {
     printf("\033[1;36m");
     printf("Welcome to PW \n");
     printf("\033[0m");
+    printf("%sVersion: %s\n",PINK,VERSION);
     printf("\033[1;33m");
     printf("Created by: Fuad Alizada\n");
     printf("GitHub: https://github.com/martian58\n");

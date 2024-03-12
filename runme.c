@@ -7,6 +7,7 @@
 
 //Local libs
 #include "pws_lib/pw2/pw2.h"
+#include "src/terminal_art/controller.h"
 
 // Functions
 void pws_menu();
@@ -92,6 +93,54 @@ void pw2_start(){
     }
 }
 
+void terminal_art_start(){
+    terminal_art_menu();
+    bool ex_is_set=false;
+    int ex_num;
+    while(!ex_is_set){
+        ex_num=get_int_input();
+        if(ex_num==1){
+            rick(); 
+            system("clear");
+            terminal_art_start();
+
+        }
+        else if(ex_num==2){
+            parrot();
+            system("clear");
+            terminal_art_start();
+        }
+        else if(ex_num==3){
+            donut();
+            system("clear");
+            terminal_art_start();
+
+        }
+        else if(ex_num==4){
+            bank();
+        }
+        else if (ex_num==5){
+            conv2();
+        }
+        else if(ex_num==6){
+            array_func();
+        }
+        else if(ex_num==7){
+            pws_menu();
+        }
+        else if(ex_num==8){
+            exit_program();
+        }
+        else if(ex_num==9){
+            system("clear");
+            terminal_art_start();
+        }
+        else{
+            
+            printf("%s%s%s",RED,"Invalid option!\n",RESET);
+        }
+    }
+}
 
 //PWs menu
 void pws_menu(){
@@ -113,6 +162,10 @@ void pws_menu(){
         else if(option==9){
             exit_program();
             option_is_set=true; 
+        }
+        else if(option==10){
+            system("clear");
+            terminal_art_start();
         }
         else if(option==2){
             system("clear");

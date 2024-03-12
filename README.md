@@ -2,8 +2,6 @@
 
 This program includes all the exercises of the Practical works. Source codes are in 'pws_lib' directory.
 
-- **How to use**: You can find all the practical works on the "PWS MENU"
-
 - **Cross-Platform Compatibility**: The program is designed to run on multiple operating systems, including Windows, macOS
  and Unix-like systems. But unix-like systems are highly recommended.
 
