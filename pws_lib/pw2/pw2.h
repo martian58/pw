@@ -68,6 +68,7 @@ void power() {
 
     // Input base from the user.
     printf("%s%s%s",WHITE,"(power) Enter the base: ", RESET);
+    // It's better to use do-while loop here but i used both in different exercises not to get bored.
     while (scanf("%lf", &base) != 1) {
         printf("%s%s%s", RED, "(power) Invalid input. Please enter a number: ", RESET);
         while (getchar() != '\n'); // Clear input buffer.
@@ -367,7 +368,7 @@ void convert_length2(float length, char unit) {
     }
 }
 
-// Main Function of the converter.
+// Main Function of the convertor.
 int conv2() {
     float length;
     char unit;
@@ -462,24 +463,24 @@ int array_func() {
 
     // Input validation loop for array size.
     do {
-        printf("%sEnter the size of the array (up to %d): %s",WHITE, SIZE_MAX,RESET);
+        printf("%s(array) Enter the size of the array (up to %d): %s",WHITE, SIZE_MAX,RESET);
         num_valid = scanf("%d", &size);
         clear_input_buffer();
         if (num_valid != 1 || size <= 0 || size > SIZE_MAX) {
-            printf("%sInvalid size. Please enter a positive integer up to %d.%s\n\n",RED,SIZE_MAX,RESET);
+            printf("%s(array) Invalid size. Please enter a positive integer up to %d.%s\n\n",RED,SIZE_MAX,RESET);
             continue;
         }
     } while (num_valid != 1 || size <= 0 || size > SIZE_MAX);
 
     // Input loop for array elements.
-    printf("%s\nEnter the elements of the array:\n%s",BLUE,RESET);
+    printf("%s\n(array) Enter the elements of the array:\n%s",BLUE,RESET);
     for (int i = 0; i < size; i++) {
         do {
-            printf("%sElement %d%s: ", WHITE,i + 1,RESET);
+            printf("%s(array) Element %d%s: ", WHITE,i + 1,RESET);
             num_valid = scanf("%f", &arr[i]);
             clear_input_buffer();
             if(num_valid !=1){
-                printf("%sInvalid input. Please enter real numbers!\n\n%s",RED,RESET);
+                printf("%s(array) Invalid input. Please enter real numbers!\n\n%s",RED,RESET);
                 continue;
             }
         } while(num_valid != 1);
