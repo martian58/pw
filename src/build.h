@@ -59,7 +59,7 @@ int is_flask_installed() {
     pclose(fp);
 
     // Check if the output contains "ImportError" (indicating Flask is not installed).
-    if (strstr(output, "ImportError") != NULL) {
+    if (strstr(output, "ModuleNotFoundError") != NULL) {
         return 0;  // Flask is not installed
     } else {
         return 1;  // Flask is installed
