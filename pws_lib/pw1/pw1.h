@@ -199,7 +199,7 @@ void convert_length(float length, char unit) {
             printf("%s",GREEN);
             inches= length/2.54;//Convert centimeters to inches.
             printf("%.4f %c = %.4f i\n", length, unit, inches);
-            printf("%S",RESET);
+            printf("%s",RESET);
             break;
         default:
             printf("%s(conv) Invalid unit. Please enter a valid unit--> %s(i, m, or c).%s\n",RED,BLUE,RESET);

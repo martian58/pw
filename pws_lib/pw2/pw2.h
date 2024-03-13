@@ -400,7 +400,7 @@ int conv2() {
         if (tolower(again) =='y'){
             continue;
         }else if(tolower(again)=='n'){
-            printf("%xExiting...%s\n\n",RED, RESET);
+            printf("%sExiting...%s\n\n",RED, RESET);
             break;
         }else{
             printf("%s(conv2) Invalid input. Continuing the convention...%s\n\n",RED,RESET);

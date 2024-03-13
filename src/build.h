@@ -74,7 +74,7 @@ int build_python() {
                 printf("%sPython needs to be installed!.%s\n",YELLOW,RESET);
                 printf("%sLet's install........%s\n",BLUE,RESET);
                 usleep(20000);
-                printf(WHITE);
+                printf("%s",WHITE);
                 system("sudo apt install python3");
 
             }
