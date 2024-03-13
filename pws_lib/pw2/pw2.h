@@ -16,7 +16,7 @@
 // Function to show some fancy menu :)
 void show_pw2_menu() {
     printf("\n\n");
-    printf("%s%s%s",GREEN,"************** PW 2  MENU ****************",RESET);
+    printf("%s************** PW 2  MENU ****************%s",GREEN,RESET);
     printf("\n\n");
     printf("%s", WHITE);
     printf("1. Ex_1 (Power finder)\n");
@@ -25,11 +25,11 @@ void show_pw2_menu() {
     printf("4. Ex_4 (Imaginary Bank)\n");
     printf("5. Ex_5 (Inch - centimeter convertor --> uptaded version for pw2.)\n");
     printf("6. Ex_6 (Array manipulation)\n");
-    printf("%s%s%s",YELLOW,"7. Go back.\n",RESET);
-    printf("%s%s",RED,"8. Exit.\n");
-    printf("%s%s%s",GREEN,"9. Clear screen",RESET);
+    printf("%s7. Go back.%s\n",RED,RESET);
+    printf("%s8. Exit.%s\n",RED,RESET);
+    printf("%s9. Clear screen%s",GREEN,RESET);
     printf("\n\n");
-    printf("%s%s%s%s%s",YELLOW,"Important*->",RESET,WHITE,"Source codes of these exercises are in 'pws_lib/pw2' directory.");
+    printf("%sImportant*-> %sSource codes of these exercises are in 'pws_lib/pw2' directory.%s",YELLOW,WHITE,RESET);
     printf("%s", RESET);
 }
 
@@ -67,17 +67,17 @@ void power() {
     int exponent; // exponent must be an integer.
 
     // Input base from the user.
-    printf("%s%s%s",WHITE,"(power) Enter the base: ", RESET);
+    printf("%s(power) Enter the base: %s",WHITE, RESET);
     // It's better to use do-while loop here but i used both in different exercises not to get bored.
     while (scanf("%lf", &base) != 1) {
-        printf("%s%s%s", RED, "(power) Invalid input. Please enter a number: ", RESET);
+        printf("%s(power) Invalid input. Please enter a number: %s",RED, RESET);
         while (getchar() != '\n'); // Clear input buffer.
     }
 
     // Input exponent from the user.
-    printf("%s%s%s",WHITE,"(power) Enter the exponent: ", RESET);
+    printf("%s(power) Enter the exponent: %s",WHITE, RESET);
     while (scanf("%d", &exponent) != 1) {
-        printf("%s%s%s", RED, "(power) Invalid input. Please enter an integer: ", RESET);
+        printf("%s(power) Invalid input. Please enter an integer: %s",RED, RESET);
         while (getchar() != '\n'); // Clear input buffer.
     }
 
@@ -121,9 +121,9 @@ int is_prime() {
     int number;
 
     // Input the number from the user with validation
-    printf("%s%s%s",WHITE,"(prime_checker) Enter an integer number: ",RESET);
+    printf("%s(prime_checker) Enter an integer number: %s",WHITE, RESET);
     while (scanf("%d", &number) != 1 || number < 0) {
-        printf("%s%s%s",RED,"(prime_checker) Invalid input. Please enter a non-negative integer: ",RESET);
+        printf("%s(prime_checker) Invalid input. Please enter a non-negative integer: %s",RED,RESET);
         while (getchar() != '\n'); 
     }
 
@@ -185,15 +185,15 @@ int days_in_month() {
     int month, year;
     
     // Input the month and year from the user with validation.
-    printf("%s%s%s",WHITE,"(days_in_month) Enter the month number: ",RESET);
+    printf("%s(days_in_month) Enter the month number: %s",WHITE,RESET);
     while (scanf("%d", &month) != 1 || month < 1 || month > 12) {
-        printf("%s%s%s",RED,"(days_in_month) Invalid input. Please enter a number between 1 and 12: ",RESET);
+        printf("%s(days_in_month) Invalid input. Please enter a number between 1 and 12: %s",RED,RESET);
         while (getchar() != '\n'); 
     }
     // Check if the year really exist. 
-    printf("%s%s%s",WHITE,"(days_in_month) Enter the year: ",RESET);
+    printf("%s(days_in_month) Enter the year: %s",WHITE,RESET);
     while (scanf("%d", &year) != 1 || year <= 0) {
-        printf("%s%s%s",RED,"(days_in_month) Invalid input. Please enter an exixting year!: ",RESET);
+        printf("%s(days_in_month) Invalid input. Please enter an exixting year!: %s",RED,RESET);
         while (getchar() != '\n'); 
     }
 
@@ -202,9 +202,9 @@ int days_in_month() {
     
     // Display the number of days and the name of the month.
     if (daysInMonth != -1) {
-        printf(GREEN);
+        printf("%s",GREEN);
         printf("(days_in_month) Number of days in %s %d is %d\n", getMonthName(month), year, daysInMonth);
-        printf(RESET);
+        printf("%s",RESET);
     }
     
     return 0;
@@ -274,7 +274,7 @@ int bank() {
         clear_input_buffer();//clear buffer
         // Checking the condition for initial capital using if statement.
         if(num_items != 1 || initial_capital <= 0){
-            printf("%s%s%s", RED, "(bank) Invalid input!\n", RESET);
+            printf("%s(bank) Invalid input!%s\n",RED, RESET);
         }
     } while (num_items != 1 || initial_capital <= 0);
 
@@ -284,7 +284,7 @@ int bank() {
         num_items = scanf("%f", &interest_rate);
         clear_input_buffer();
         if(num_items != 1 || interest_rate >=1 || interest_rate <= 0){
-            printf("%s%s%s", RED, "(bank) Invalid input!\n", RESET);
+            printf("%s(bank) Invalid input!%s\n",RED, RESET);
         }
     } while (num_items != 1 || interest_rate <= 0 || interest_rate >= 1);
 
@@ -294,7 +294,7 @@ int bank() {
         num_items = scanf("%d", &investment_period);
         clear_input_buffer();
         if(num_items != 1 || investment_period <= 0){
-            printf("%s%s%s", RED, "(bank) Invalid input!\n", RESET);
+            printf("%s(bank) Invalid input!%s\n",RED, RESET);
         }
     } while (num_items != 1 || investment_period <= 0);
 
@@ -345,26 +345,26 @@ void convert_length2(float length, char unit) {
     switch(tolower(unit)) { // Convert unit to lowercase.
         case 'i':
             centimeters = length * 2.54; // 1 inch = 2.54 cm.
-            printf(GREEN);
+            printf("%s",GREEN);
             printf("%.4f %c = %.4f cm\n\n", length, unit, centimeters);
-            printf(RESET);
+            printf("%s",RESET);
             break;
         case 'm':
             centimeters = length * 100; // 1 meter = 100 cm.
             inches = centimeters / 2.54; // Convert centimeters to inches.
-            printf(GREEN);
+            printf("%s",GREEN);
             printf("%.4f %c = %.4f cm\n", length, unit, centimeters);
             printf("%.4f %c = %.4f i\n\n", length, unit, inches);
-            printf(RESET);
+            printf("%s",RESET);
             break;
         case 'c':
-            printf(GREEN);
+            printf("%s",GREEN);
             inches= length/2.54;//Convert centimeters to inches.
             printf("%.4f %c = %.4f i\n\n", length, unit, inches);
-            printf(RESET);
+            printf("%s",RESET);
             break;
         default:
-            printf("%s%s%s%s",RED,"(conv2) Invalid unit. Please enter a valid unit-->",BLUE,"(i, m, or c).\n",RESET);
+            printf("%s(conv2) Invalid unit. Please enter a valid unit--> %s(i, m, or c).%s\n",RED,BLUE,RESET);
     }
 }
 
@@ -378,7 +378,7 @@ int conv2() {
 
     do {
         // Scan the inputs from the user.
-        printf("%s%s%s",WHITE,"(conv2) Enter the length: ",RESET);
+        printf("%s(conv2) Enter the length: %s",WHITE,RESET);
         num_valid = scanf("%f %c", &length, &unit); // Allow blanks between value and unit.
 
         //Check if input is in valid format.
@@ -386,7 +386,7 @@ int conv2() {
             convert_length2(length, unit);
         } else {
             // If input is in wrong format, then warn the user about this and show the correct version.
-            printf("%s%s%s%s",RED,"(conv2) Invalid unit. Please enter a valid unit-->",BLUE,"(i, m, or c).\n",RESET);
+            printf("%s(conv2) Invalid unit. Please enter a valid unit--> %s(i, m, or c).%s\n",RED,BLUE,RESET);
         }
 
         // Ask user if they want to start over? .
@@ -395,15 +395,15 @@ int conv2() {
             Exit the program if and only of the user inputs 'n' or 'N'.
             if input is anything different than 'n' or 'N' the continue to running the code.
         */
-        printf("%s%s%s",WHITE, "(conv2) Do you want to convert another length? (y/N): ", RESET);
+        printf("%s(conv2) Do you want to convert another length? (y/N): %s",WHITE, RESET);
         scanf(" %c", &again); 
         if (tolower(again) =='y'){
             continue;
         }else if(tolower(again)=='n'){
-            printf("%s%s",RED,"Exiting...\n\n",RESET);
+            printf("%xExiting...%s\n\n",RED, RESET);
             break;
         }else{
-            printf("%s%s%s",RED,"(conv2) Invalid input. Continuing the convention...\n\n",RESET);
+            printf("%s(conv2) Invalid input. Continuing the convention...%s\n\n",RED,RESET);
             continue;
         }
 

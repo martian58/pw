@@ -45,7 +45,7 @@ void pw1_start(){
             pw1_start();
         }
         else{
-            printf("%s%s%s",RED,"Invalid option!\n",RESET);
+            printf("%sInvalid option!%s\n",RED,RESET);
         }
     }
 }
@@ -88,7 +88,7 @@ void pw2_start(){
         }
         else{
             
-            printf("%s%s%s",RED,"Invalid option!\n",RESET);
+            printf("%sInvalid option!%s\n",RED,RESET);
         }
     }
 }
@@ -129,7 +129,7 @@ void terminal_art_start(){
         }
         else{
             
-            printf("%s%s%s",RED,"Invalid option!\n",RESET);
+            printf("%sInvalid option!%s\n",RED,RESET);
         }
     }
 }
@@ -164,10 +164,10 @@ void pws_menu(){
             pw2_start();
         }
         else if(option>2 && option<8){
-            printf("%s%s%s",YELLOW,"Coming soon!\n",RESET);
+            printf("%sComing soon!%s\n",YELLOW,RESET);
         }
         else {
-            printf("%s%s%s",RED,"Invalid option!\n",RESET);
+            printf("%sInvalid option!%s\n",RED,RESET);
         }
     }
 
@@ -202,7 +202,7 @@ void controler(){
         }
         
         else{
-            printf("%s%s",RED,"Wrong Input!\n");
+            continue;
         }
     }
 }

@@ -13,18 +13,18 @@
 // Function to show some fancy menu :)
 void show_pw1_menu() {
     printf("\n\n");
-    printf("%s%s%s",GREEN,"************** PW 1  MENU ****************",RESET);
+    printf("%s************** PW 1  MENU ****************%s",GREEN,RESET);
     printf("\n\n");
     printf("%s", WHITE);
     printf("1. Ex_1 (GCD Finder)\n");
     printf("2. Ex_2 (Quadratic eq. solver)\n");
     printf("3. Ex_3 (Absolute value finder)\n");
     printf("4. Ex_4 (Inch - centimeter convertor)\n");
-    printf("%s%s%s",YELLOW,"5. Go back.\n",RESET);
-    printf("%s%s",RED,"6. Exit.\n");
-    printf("%s%s%s",GREEN,"7. Clear screen",RESET);
+    printf("%s5. Go back.%s\n",YELLOW, RESET);
+    printf("%s6. Exit.\n",RED);
+    printf("%s7. Clear screen%s",GREEN,RESET);
     printf("\n\n");
-    printf("%s%s%s%s%s",YELLOW,"Important*->",RESET,WHITE,"Source codes of these exercises are in 'pws_lib/pw1' directory.");
+    printf("%sImportant*-> %sSource codes of these exercises are in 'pws_lib/pw1' directory.%s",YELLOW,WHITE,RESET);
     printf("%s", RESET);
 }
 //***************************************************************************************************************************************
@@ -51,17 +51,17 @@ int main_gcd() {
         3. If value is valid, then do the same for the second input.
             Created by: Fuad Alizada 
     */
-    printf("%s%s%s",WHITE,"(gcd) Enter the first positive integer: ", RESET);
+    printf("%s(gcd) Enter the first positive integer: %s",WHITE, RESET);
     first_num_scanned = scanf("%d", &a);
     if (first_num_scanned != 1 || a <= 0) {
-        printf("%s%s%s", RED, "(gcd) Invalid input. Please enter a positive integer.\n", RESET);
+        printf("%s(gcd) Invalid input. Please enter a positive integer.%s\n",RED, RESET);
         return 1;
     }
     else{
-        printf("%s%s%s",WHITE,"(gcd) Enter the second positive integer: ", RESET);
+        printf("%s(gcd) Enter the second positive integer: %s",WHITE,RESET);
         second_num_scanned = scanf("%d", &b);
             if (second_num_scanned != 1 || b <= 0) {
-            printf("%s%s%s", RED, "(gcd) Invalid input. Please enter a positive integer.\n", RESET);
+            printf("%s(gcd) Invalid input. Please enter a positive integer.%s\n",RED, RESET);
             return 1;
     }
 }
@@ -96,7 +96,7 @@ int quad() {
     float a, b, c;//Coefficients
 
     // Geting coefficients from the user
-    printf("%s%s%s",WHITE,"(quad) Enter coefficients 'a, b, c' (seperated by spaces):",RESET);
+    printf("%s(quad) Enter coefficients 'a, b, c' (seperated by spaces): %s",WHITE, RESET);
     scanf("%f %f %f", &a, &b, &c);
 
     // Calculating the discriminant
@@ -119,7 +119,7 @@ int quad() {
         printf("%s",RESET);
     } else {
         // If Equation has no real roots
-        printf("%s%s%s",YELLOW,"(quad) Equation has no real solutions\n",RESET);
+        printf("%s(quad) Equation has no real solutions.%s\n",YELLOW, RESET);
     }
     //Return 0 if there was no errors
     return 0;
@@ -139,16 +139,16 @@ int abs_val() {
     double num1, num2;
 
     // Input two numbers from the user
-    printf("%s%s%s",WHITE,"(abs) Enter the first number: ",RESET);
+    printf("%s(abs) Enter the first number: %s",WHITE,RESET);
     if (scanf("%lf", &num1) != 1) {
-        printf("%s%s%s",RED,"(abs) Invalid input. Please enter a valid number.\n",RESET);
+        printf("%s(abs) Invalid input. Please enter a valid number.%s\n",RED,RESET);
 
         return 1;
     }
 
-    printf("%s%s%s",WHITE,"(abs) Enter the second number: ",RESET);
+    printf("%s(abs) Enter the second number: %s",WHITE,RESET);
     if (scanf("%lf", &num2) != 1) {
-        printf("%s%s%s",RED,"(abs) Invalid input. Please enter a valid number.\n",RESET);
+        printf("%s(abs) Invalid input. Please enter a valid number.%s\n",RED,RESET);
 
         return 1;
     }
@@ -183,26 +183,26 @@ void convert_length(float length, char unit) {
     switch(unit) {
         case 'i':
             centimeters = length * 2.54; // 1 inch = 2.54 cm.
-            printf(GREEN);
+            printf("%s",GREEN);
             printf("%.4f %c = %.4f cm\n", length, unit, centimeters);
-            printf(RESET);
+            printf("%s",RESET);
             break;
         case 'm':
             centimeters = length * 100; // 1 meter = 100 cm.
             inches = centimeters / 2.54; // Convert centimeters to inches.
-            printf(GREEN);
+            printf("%s",GREEN);
             printf("%.4f %c = %.4f cm\n", length, unit, centimeters);
             printf("%.4f %c = %.4f i\n", length, unit, inches);
-            printf(RESET);
+            printf("%s",RESET);
             break;
         case 'c':
-            printf(GREEN);
+            printf("%s",GREEN);
             inches= length/2.54;//Convert centimeters to inches.
             printf("%.4f %c = %.4f i\n", length, unit, inches);
-            printf(RESET);
+            printf("%S",RESET);
             break;
         default:
-            printf("%s%s%s%s",RED,"(conv) Invalid unit. Please enter a valid unit-->",BLUE,"(i, m, or c).\n",RESET);
+            printf("%s(conv) Invalid unit. Please enter a valid unit--> %s(i, m, or c).%s\n",RED,BLUE,RESET);
 
     }
 }
@@ -212,14 +212,15 @@ int conv() {
     char unit;
 
     // Scan the inputs from the user
-    printf("%s%s%s",WHITE,"(conv) Enter the length: ",RESET);
+    printf("%s(conv) Enter the length: %s",WHITE,RESET);
     scanf("%f%c", &length, &unit);
     //Check if input is in valid fromat.
     if (unit == 'i' || unit == 'm' || unit == 'c') {
         convert_length(length, unit);
     } else {
         // If input is in wrong format, then warn the user about this and show the correct version.
-        printf("%s%s%s%s",RED,"(conv) Invalid unit. Please enter a valid unit-->",BLUE,"(i, m, or c).\n",RESET);
+        printf("%s(conv) Invalid unit. Please enter a valid unit--> %s(i, m, or c).%s\n",RED,BLUE,RESET);
+
     }
     
 

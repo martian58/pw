@@ -53,42 +53,42 @@ char *VERSION="1.1";
 // Function to show the fancy main menu :).
 void show_main_menu() {
     printf("\n\n");
-    printf("%s%s%s",GREEN,"************** PWS MENU ****************",RESET);
+    printf("%s************** PWS MENU ****************%s",GREEN,RESET);
     printf("\n\n");
-    printf("%s%s%s",BLUE,"1. PW_1 (Available)\n",RESET);
-    printf("%s%s",GREEN,"2. PW_2 (New)\n");
+    printf("%s1. PW_1 (Available)%s\n",BLUE,RESET);
+    printf("%s2. PW_2 (New)\n",GREEN);
     printf("%s", WHITE);
     printf("3. PW_3 (Coming soon)\n");
     printf("4. PW_4 (Coming soon)\n");
     printf("5. PW_5 (Coming soon)\n");
     printf("6. PW_6 (Coming soon)\n");
     printf("7. PW_7 (Coming soon)\n");
-    printf("%s%s%s",YELLOW,"8. Go back\n",RESET);
-    printf("%s%s%s",RED,"9. Exit\n",RESET);
+    printf("%s8. Go back%s\n",YELLOW,RESET);
+    printf("%s9. Exit%s\n",RED,RESET);
     printf("\n");
     printf("%s************** FUN STUFF ****************\n",GREEN);
     printf("\n");
-    printf("%s%s%s",GREEN,"10. Terminal Art",RESET);
+    printf("%s10. Terminal Art%s",GREEN,RESET);
     printf("%s", RESET);
 }
 void terminal_art_menu() {
     printf("\n\n");
-    printf("%s%s%s",GREEN,"**************  Terminal Art ****************",RESET);
+    printf("%s************** Terminal Art ****************%s",GREEN,RESET);
     printf("\n\n");
-    printf("%s%s%s",BLUE,"1. Rick The Dancer\n",RESET);
-    printf("%s%s",GREEN,"2. Parrot\n");
+    printf("%s1. Rick The Dancer%s\n",BLUE,RESET);
+    printf("%s2. Parrot%s\n",YELLOW,RESET);
     printf("%s", WHITE);
     printf("3. Donut\n");
-    printf("%s%s%s",YELLOW,"7. Go back\n",RESET);
-    printf("%s%s%s",RED,"8. Exit\n",RESET);
-    printf("%s%s%s",GREEN,"9. Clear screen\n",RESET);
+    printf("%s7. Go back%s\n",YELLOW,RESET);
+    printf("%s8. Exit%s\n",RED,RESET);
+    printf("%s9. Clear screen%s\n",GREEN,RESET);
     printf("%s", RESET);
 }
 // Function to exit the program.
 void exit_program(){
-    printf("%s%s",YELLOW,"Exiting....\n");
+    printf("%sExiting....\n",YELLOW);
     usleep(1000000);
-    printf("%s%s",GREEN,"Have a good day!\n");
+    printf("%sHave a good day!\n",GREEN);
     usleep(2000000);
     system("clear");
     exit(0);
@@ -107,15 +107,15 @@ int get_int_input() {
     int success;  // Variable to hold the return value of scanf.
 
     do {
-        printf("%s%s%s",GREEN,"Enter the number of the option you choose.\n",RESET);
-        printf("%s%s%s",PINK,"pw--> ",RESET);
+        printf("%sEnter the number of the option you choose.%s\n",GREEN,RESET);
+        printf("%spw--> %s",PINK,RESET);
         success = scanf("%d", &input);
 
         // Clear the input buffer in case of invalid input.
         while (getchar() != '\n');
 
         if (success != 1) {
-            printf("%s%s%s",RED,"Invalid option!\n\n",RESET);
+            printf("%sInvalid option!%s\n\n",RED,RESET);
 
         }
     } while (success != 1);
@@ -128,8 +128,8 @@ int get_int_input() {
 char get_char_input() {
     printf("\n\n");
     char input;
-    printf("%s%s%s",GREEN,"Enter the number of the option you choose.\n",RESET);
-    printf("%s%s%s",PINK,"pw--> ",RESET);
+    printf("%sEnter the number of the option you choose.%s\n",GREEN,RESET);
+    printf("%spw--> %s",PINK,RESET);
     scanf(" %c", &input); //the space before %c to consume whitespace.
     return input;
 }
@@ -209,8 +209,8 @@ void intro() {
     printf("Continue to the pws menu to explore them. Source codes are in 'pws_lib' directory.\n");
     printf("\n\n");
     printf("1. Continue \n");
-    printf("%s%s%s",RED,"2. Exit \n",RESET);
-    printf("%s%s%s",GREEN,"3. Visit my github :) \n",RESET);
+    printf("%s2. Exit%s \n",RED,RESET);
+    printf("%s3. Visit my github :)%s \n",GREEN,RESET);
 }
 
 

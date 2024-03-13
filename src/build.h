@@ -100,7 +100,7 @@ int install_flask() {
             printf("%sFlask needs to be installed!%s\n", YELLOW, RESET);
             printf("%sLet's install...%s\n", BLUE, RESET);
             usleep(20000);
-            printf(WHITE);
+            printf("%s",WHITE);
             system("sudo apt install python3-flask");
         }
     } else if (detect_os() == 2) { // Assuming detect_os() returns 2 for macOS
