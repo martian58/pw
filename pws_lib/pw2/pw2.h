@@ -25,7 +25,7 @@ void show_pw2_menu() {
     printf("4. Ex_4 (Imaginary Bank)\n");
     printf("5. Ex_5 (Inch - centimeter convertor --> uptaded version for pw2.)\n");
     printf("6. Ex_6 (Array manipulation)\n");
-    printf("%s7. Go back.%s\n",RED,RESET);
+    printf("%s7. Go back.%s\n",YELLOW,RESET);
     printf("%s8. Exit.%s\n",RED,RESET);
     printf("%s9. Clear screen%s",GREEN,RESET);
     printf("\n\n");
