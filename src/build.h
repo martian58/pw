@@ -1,3 +1,7 @@
+/*
+  I'm not sure if i'm ever gonna use this. If i dont use and forget to remove, this was meant 
+  to install python and flask and maybe other packages for better GUI(web).
+*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,63 +10,53 @@
 #include "../src/constants.h"
 
 int is_python_installed() {
-    // Define the command string.
     char commnd[30];
 
-    // Choose the appropriate command based on the OS.
     if (detect_os() == 0) {
         strcpy(commnd, "python3 --version");
     } else {
         strcpy(commnd, "python --version");
     }
 
-    // Try running the Python interpreter.
     FILE *fp = popen(commnd, "r");
     if (fp == NULL) {
         printf("%sError: Unable to execute python%s\n",RED,RESET);
-        return 0;  // Python is not installed or accessible
+        return 0; 
     }
 
-    // Read the output of the Python command
     char output[128];
     fgets(output, sizeof(output), fp);
     pclose(fp);
 
-    // Check if the output contains "Python" (indicating Python is installed)
     if (strstr(output, "Python") != NULL) {
-        return 1;  // Python is installed
+        return 1; 
     } else {
-        return 0;  // Python is not installed
+        return 0;  
     }
 }
 int is_flask_installed() {
-    // Define the command string.
     char command[30];
 
-    // Choose the appropriate command based on the OS.
     if (detect_os() == 0) {
         strcpy(command, "python3 -c \"import flask\"");
     } else {
         strcpy(command, "python -c \"import flask\"");
     }
 
-    // Try running the Python command.
     FILE *fp = popen(command, "r");
     if (fp == NULL) {
         printf("%sError: Unable to execute the Python command%s\n", RED, RESET);
-        return 0;  // Flask is not installed or Python is not accessible
+        return 0; 
     }
 
-    // Read the output of the Python command.
     char output[128];
     fgets(output, sizeof(output), fp);
     pclose(fp);
 
-    // Check if the output contains "ImportError" (indicating Flask is not installed).
     if (strstr(output, "ModuleNotFoundError") != NULL) {
-        return 0;  // Flask is not installed
+        return 0; 
     } else {
-        return 1;  // Flask is installed
+        return 1;  
     }
 }
 
@@ -92,8 +86,7 @@ int build_python() {
     return 0;
 }
 int install_flask() {
-    if (detect_os() == 0) { // Assuming detect_os() returns 0 for Linux
-        // Check if Flask is already installed
+    if (detect_os() == 0) {
         if (is_flask_installed()) {
             printf("%sFlask is already installed.%s\n", GREEN, RESET);
         } else {
@@ -103,7 +96,7 @@ int install_flask() {
             printf("%s",WHITE);
             system("sudo apt install python3-flask");
         }
-    } else if (detect_os() == 2) { // Assuming detect_os() returns 2 for macOS
+    } else if (detect_os() == 2) { 
         printf("%sYou have macOS. I am not able to install Flask :(%s\n", PINK, RESET);
         printf("%sBut you can download Flask from here --> https://pypi.org/project/Flask/%s\n", WHITE, RESET);
     }

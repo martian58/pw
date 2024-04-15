@@ -14,3 +14,6 @@ void parrot(){
 void donut(){
     system("python3 src/terminal_art/donut.py");
 }
+void mr_robot(){
+    system("python3 src/terminal_art/mr_robot.py");
+}

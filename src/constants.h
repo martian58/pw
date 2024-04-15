@@ -48,17 +48,17 @@ char *RESET = "\033[0m";
 
 
 //Version information.
-char *VERSION="1.1";
+char *VERSION="1.2";
 
 // Function to show the fancy main menu :).
 void show_main_menu() {
     printf("\n\n");
     printf("%s************** PWS MENU ****************%s",GREEN,RESET);
     printf("\n\n");
-    printf("%s1. PW_1 (Available)%s\n",BLUE,RESET);
-    printf("%s2. PW_2 (New)\n",GREEN);
+    printf("%s1. PW_1 (Available)\n",BLUE);
+    printf("2. PW_2 (Available)\n");
+    printf("%s3. PW_3 (New)\n",GREEN);
     printf("%s", WHITE);
-    printf("3. PW_3 (Coming soon)\n");
     printf("4. PW_4 (Coming soon)\n");
     printf("5. PW_5 (Coming soon)\n");
     printf("6. PW_6 (Coming soon)\n");
@@ -66,9 +66,12 @@ void show_main_menu() {
     printf("%s8. Go back%s\n",YELLOW,RESET);
     printf("%s9. Exit%s\n",RED,RESET);
     printf("\n");
-    printf("%s************** FUN STUFF ****************\n",GREEN);
+    printf("%s************** FUN STUFF ***************\n",GREEN);
     printf("\n");
-    printf("%s10. Terminal Art%s",GREEN,RESET);
+    printf("%s10. Terminal Art%s",BLUE,RESET);
+    printf("\n\n");
+    printf("%s*********** SOME USEFUL STUFF **********\n\n",GREEN);
+    printf("%s15. Standard deviation stuff%s",BLUE,RESET);
     printf("%s", RESET);
 }
 void terminal_art_menu() {
@@ -79,6 +82,7 @@ void terminal_art_menu() {
     printf("%s2. Parrot%s\n",YELLOW,RESET);
     printf("%s", WHITE);
     printf("3. Donut\n");
+    printf("%s4. Mr Robot\n",PINK);
     printf("%s7. Go back%s\n",YELLOW,RESET);
     printf("%s8. Exit%s\n",RED,RESET);
     printf("%s9. Clear screen%s\n",GREEN,RESET);
@@ -94,7 +98,7 @@ void exit_program(){
     exit(0);
 }
 
-//Function to clear the buffer after invalid inputs
+//Function to clear the buffer after invalid inputs.
 void clear_input_buffer() {
     int c;
     while ((c = getchar()) != '\n' && c != EOF);
@@ -148,22 +152,22 @@ void print_padded_line(const char *text, int padding_top, int padding_left) {
     printf("%*s%s\n", padding_left, "", text);
 }
 
-// Function to generate a random character
+// Function to generate a random character.
 char generate_random_char() {
     const char *chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
     int len = strlen(chars);
     return chars[rand() % len];
 }
 
-// PW1 ASCII art with color transition and padding
+// PW1 ASCII art with color transition and padding.
 void intro() {
-    // Clear the screen
+    // Clear the screen.
     printf("\033c");
 
-    // Define color codes
+    // Define color codes.
     const char *colors[] = {"34", "32", "33", "36", "35"};
 
-    // ASCII art lines
+    // ASCII art lines.
     const char *lines[] = {
         "      @@@@@@@@@   @@                    @@       @@  ",
         "      @@     @@    @@        @@        @@        @@  ",
@@ -174,7 +178,7 @@ void intro() {
         "      @@                @@        @@             @@   "
     };
 
-    // Print each line with color transition and a random character
+    // Print each line with color transition and a random character.
     printf("\n\n");
     for (int i = 0; i < 7; i++) {
         char line_copy[strlen(lines[i]) + 1];
@@ -186,12 +190,12 @@ void intro() {
             }
         }
         print_colored_line(line_copy, colors[i % 5], colors[(i + 1) % 5]);
-        usleep(200000); // Sleep for 0.2 seconds
+        usleep(200000); // Sleep for 0.2 seconds.
     }
 
     printf("\n\n");
 
-    // Welcome message,Author and GitHub reference
+    // Welcome message,Author and GitHub reference.
     printf("\033[1;36m");
     printf("Welcome to PW \n");
     printf("\033[0m");
@@ -214,16 +218,16 @@ void intro() {
 }
 
 
-// Os detection
+// Os detection.
 int detect_os() {
-    // Check if compiling on Windows
+    // Check if compiling on Windows.
     #ifdef _WIN32
         return 1;
-    // Check if compiling on macOS
+    // Check if compiling on macOS.
     #elif defined(__APPLE__)
         return 2;
     #else
-        // Unix-like system
+        // Unix-like system.
         return 0;
     #endif
 }
@@ -232,7 +236,7 @@ void windows_os_detected(){
     int num_valid;
     char option;
     if(detect_os()==1){
-        printf("%sYou have Windows Os, Some functions are not gonna work%s\n",YELLOW,RESET);
+        printf("%sYou have Windows Os, Some functions are not gonna work :(%s\n",YELLOW,RESET);
         do{
             printf("%sDo you want to continue anyway(Y/n)?(not recommended): %s",YELLOW,RESET);
             num_valid=scanf("%c",&option);
@@ -256,18 +260,18 @@ void windows_os_detected(){
 int command_executer(const char *command) {
     char buffer[1024];
 
-    // Open a pipe to the command and capture its output
+    // Open a pipe to the command and capture its output.
     FILE *pipe = popen(command, "r");
     if (!pipe) {
         return 1;
     }
 
-    // Read the output of the command from the pipe
+    // Read the output of the command from the pipe.
     while (fgets(buffer, sizeof(buffer), pipe) != NULL) {
         printf("%s", buffer);
     }
 
-    // Close the pipe
+    // Close the pipe.
     pclose(pipe);
 
     return 0;

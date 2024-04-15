@@ -6,14 +6,15 @@
 #include <unistd.h>
 
 //Local libs
-#include "pws_lib/pw2/pw2.h"
+#include "src/standard_deviation/standard_deviation.h"
 #include "src/terminal_art/controller.h"
 
 // Functions
 void pws_menu();
 void pw1_start();
-void controler();
+void controller();
 void pw2_start();
+void pw3_start();
 
 // PW 1
 void pw1_start(){
@@ -93,6 +94,123 @@ void pw2_start(){
     }
 }
 
+// PW 3 
+void pw3_ex3_start(){
+    show_pw3_ex3_menu();
+    bool ex_is_set=false;
+    int ex_num;
+    while(!ex_is_set){
+        ex_num=get_int_input();
+        if(ex_num==1){
+            length_find();
+        }
+        else if(ex_num==2){
+            array_sort();
+        }
+        else if(ex_num==3){
+            days_in_month();
+        }
+        else if(ex_num==4){
+            system("xdg-open https://github.com/martian58/enc.git");
+        }
+        else if(ex_num==7){
+            system("clear");
+            pw3_start();
+        }
+        else if(ex_num==8){
+            exit_program();
+        }
+        else if(ex_num==9){
+            system("clear");
+            pw3_ex3_start();
+        }
+        else{
+            
+            printf("%sInvalid option!%s\n",RED,RESET);
+        }
+    }
+    
+}
+
+void pw3_ex5_start(){
+    show_pw3_ex5_menu();
+    bool ex_is_set=false;
+    int ex_num;
+    while(!ex_is_set){
+        ex_num=get_int_input();
+        if(ex_num==1){
+            caesar();
+        }
+        else if(ex_num==2){
+            array_sort();
+        }
+        else if(ex_num==3){
+            days_in_month();
+        }
+        else if(ex_num==4){
+            system("xdg-open https://github.com/martian58/enc.git");
+        }
+        else if(ex_num==7){
+            system("clear");
+            pw3_start();
+        }
+        else if(ex_num==8){
+            exit_program();
+        }
+        else if(ex_num==9){
+            system("clear");
+            pw3_ex5_start();
+        }
+        else{
+            
+            printf("%sInvalid option!%s\n",RED,RESET);
+        }
+    }
+    
+}
+
+void pw3_start(){
+    show_pw3_menu();
+    bool ex_is_set=false;
+    int ex_num;
+    while(!ex_is_set){
+        ex_num=get_int_input();
+        if(ex_num==1){
+            display_array();
+        }
+        else if(ex_num==2){
+            array_sort();
+        }
+        else if(ex_num==3){
+            system("clear");
+            pw3_ex3_start();
+        }
+        else if(ex_num==4){
+            bank();
+        }
+        else if (ex_num==5){
+            system("clear");
+            pw3_ex5_start();
+        }
+        else if(ex_num==6){
+            array_func();
+        }
+        else if(ex_num==7){
+            pws_menu();
+        }
+        else if(ex_num==8){
+            exit_program();
+        }
+        else if(ex_num==9){
+            system("clear");
+            pw3_start();
+        }
+        else{
+            
+            printf("%sInvalid option!%s\n",RED,RESET);
+        }
+    }
+}
 // Terminal art
 void terminal_art_start(){
     terminal_art_menu();
@@ -117,6 +235,11 @@ void terminal_art_start(){
             terminal_art_start();
 
         }
+        else if(ex_num==4){
+            mr_robot();
+            system("clear");
+            terminal_art_start();
+        }
         else if(ex_num==7){
             pws_menu();
         }
@@ -134,6 +257,44 @@ void terminal_art_start(){
     }
 }
 
+// Standard Deviation
+void standard_deviation_start(){
+    show_standard_deviation_menu();
+    bool ex_is_set=false;
+    int ex_num;
+    while(!ex_is_set){
+        ex_num=get_int_input();
+        if(ex_num==1){
+            period_theoretical();
+        }
+        else if(ex_num==2){
+            period_practical();
+        }
+        else if(ex_num==3){
+            mean_value();
+        }
+        else if(ex_num==4){
+            standard_deviation();
+        }
+        else if(ex_num==5){
+            relative_difference();
+        }
+        else if(ex_num==7){
+            pws_menu();
+        }
+        else if(ex_num==8){
+            exit_program();
+        }
+        else if(ex_num==9){
+            system("clear");
+            standard_deviation_start();
+        }
+        else{
+            
+            printf("%sInvalid option!%s\n",RED,RESET);
+        }
+    }
+}
 //PWs menu
 void pws_menu(){
     system("clear");
@@ -149,7 +310,7 @@ void pws_menu(){
             pw1_start();    
         }
         else if(option==8){
-            controler();
+            controller();
         }
         else if(option==9){
             exit_program();
@@ -163,7 +324,16 @@ void pws_menu(){
             system("clear");
             pw2_start();
         }
-        else if(option>2 && option<8){
+        else if(option==3){
+            system("clear");
+            pw3_start();
+        }
+        else if(option=15){
+            system("clear");
+            standard_deviation_start();
+
+        }
+        else if(option>3 && option<8){
             printf("%sComing soon!%s\n",YELLOW,RESET);
         }
         else {
@@ -172,8 +342,8 @@ void pws_menu(){
     }
 
 }
-//Controler function
-void controler(){
+//Controller function
+void controller(){
     int answer;
     bool answer_is_set=false;
     srand(time(NULL)); // Seed the random number generator
@@ -208,6 +378,6 @@ void controler(){
 }
 // Main function
 int main() {
-    controler();
+    controller();
     return 0;
 }

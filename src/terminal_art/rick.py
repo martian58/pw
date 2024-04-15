@@ -1,4 +1,4 @@
-
+# When programmers get bored :)
 import subprocess,time,random
 list=[
    '''tfffLfttffffffLLffffttttttttttt1tfffffffffftttttt111111tffffffffftttff
