@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 //Local libs
-#include "src/standard_deviation/standard_deviation.h"
+#include "pws_lib/pw4/cli.h"
 #include "src/terminal_art/controller.h"
 
 // Functions
@@ -102,16 +102,18 @@ void pw3_ex3_start(){
     while(!ex_is_set){
         ex_num=get_int_input();
         if(ex_num==1){
-            length_find();
+            lengthFind();
         }
         else if(ex_num==2){
-            array_sort();
+            print_initilized_string();
         }
         else if(ex_num==3){
-            days_in_month();
+            initializeStringN_display();
         }
         else if(ex_num==4){
-            system("xdg-open https://github.com/martian58/enc.git");
+            comapare_strings_display();
+        }else if(ex_num==5){
+            concatenate_strings_display();
         }
         else if(ex_num==7){
             system("clear");
@@ -142,12 +144,6 @@ void pw3_ex5_start(){
             caesar();
         }
         else if(ex_num==2){
-            array_sort();
-        }
-        else if(ex_num==3){
-            days_in_month();
-        }
-        else if(ex_num==4){
             system("xdg-open https://github.com/martian58/enc.git");
         }
         else if(ex_num==7){
@@ -186,7 +182,11 @@ void pw3_start(){
             pw3_ex3_start();
         }
         else if(ex_num==4){
-            bank();
+            test_length_function();
+            test_initializeString_function();
+            test_initializeStringN_function();
+            test_compareStrings_function();
+            test_concatenateStrings_function();
         }
         else if (ex_num==5){
             system("clear");

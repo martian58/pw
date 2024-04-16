@@ -12,6 +12,7 @@
 #include <time.h>
 #include <string.h>
 #include <stdbool.h>
+#include<assert.h>
 
 //Local libs
 #include "../pw2/pw2.h"
@@ -26,8 +27,8 @@ void show_pw3_menu() {
     printf("1. Ex_1 (Display elements of an array)\n");
     printf("2. Ex_2 (Selection Sort of arrays)\n");
     printf("3. Ex_3 (strlen, strcpy, strcmp, strcat, strncpy alternatives)\n");
-    printf("4. Ex_4 (Imaginary Bank)\n");
-    printf("5. Ex_5 (Encoders)\n");
+    printf("4. Ex_4 (Tests for Ex_3)\n");
+    printf("5. Ex_5 (Encoding, Encryption)\n");
     printf("%s7. Go back.%s\n",YELLOW,RESET);
     printf("%s8. Exit.%s\n",RED,RESET);
     printf("%s9. Clear screen%s",GREEN,RESET);
@@ -209,7 +210,8 @@ char* generateRandomString() {
 }
 
 /// Part 1 ****************************
-// strlen: This function is used to calculate the length of a string
+
+// strlen: This function is used to calculate the length of a string, make your own version of it.
 // Function to get the length of a string.
 /**
 * @param str --> A string to find the length.
@@ -230,45 +232,87 @@ void lengthFind(){
     printf("%s(length) The string -> %s%s%s has a length of %s%i%s\n",WHITE,GREEN,rnd_string,WHITE,GREEN,len,RESET);
 }
 
+
 /// Part 2 *****************************************
 
+// strcpy: This function is used to copy the contents of one string to another, make your own version of it.
 // Function to initialize one string from another.
-// strcpy: This function is used to copy the contents of one string to another
-
 char* initializeString(char* dest, const char* src) {
-    char* result = dest;
     while (*src != '\0') {
         *dest = *src;
         dest++;
         src++;
     }
     *dest = '\0'; // Add null terminator to end the string.
-    return result;
 }
 
+
+// Function to display the initilizeString() function.
 void print_initilized_string(){
-    char* dest_string;
-    char* random_string = generateRandomString();
-    char* dest_string = initializeString(dest_string,random_string);
-    printf("%sSource string--> %s %s%s\n",WHITE,GREEN,random_string,RESET);
-    printf("%sDestination string --> %s %s%s\n",WHITE,GREEN,dest_string,RESET);
+    char* random_string = generateRandomString(); // Generate a random string with our previous generateRandomString() function.
+    char source_string[20]; // Variable to store the source string.
+    char dest_string[20]; // Variable to store the destinantion string.
+    initializeString(source_string,random_string);
+    initializeString(dest_string,source_string);
+
+    // Print the results.
+    printf("%s(strcpy) Source string--> %s %s%s\n",WHITE,GREEN,random_string,RESET);
+    printf("%s(strcpy) Destination string --> %s %s%s\n",WHITE,GREEN,dest_string,RESET);
 }
 
 
 /// Part 3 *****************************************************
 
-// Function to initialize a string from the (at most) n first characters of another string
-void initializeStringN(char* dest, const char* src, int n) {
+char* initializeStringN(const char* src, int n) {
+    // Allocate memory for the destination string
+    char* dest = malloc((n + 1) * sizeof(char));
+    if (dest == NULL) {
+        return NULL; // Memory allocation failed
+    }
+
     int i;
-    for (i = 0; i < n && src[i] != '\0'; i++) {
+    for (i = 0; i < n; i++) {
+        if (src[i] == '\0') {
+            break; // Stop copying if the null terminator of src is encountered
+        }
         dest[i] = src[i];
     }
-    dest[i] = '\0'; // Add null terminator to end the string
+    // If n characters have not been copied, pad the remaining characters with null terminators
+    for (; i < n; i++) {
+        dest[i] = '\0';
+    }
+
+    dest[i] = '\0'; // Ensure the destination string is null-terminated
+
+    return dest;
 }
 
-/// Part 4 *********************************************************
 
-// Function to compare two character strings lexicographically
+// Function to display the initializeStringN() function.
+void initializeStringN_display(){
+    char* rnd_str = generateRandomString();
+    int rnd_num = rand() % length(rnd_str);
+
+    char* dest_str = initializeStringN(rnd_str,rnd_num);
+
+    printf("%s(strncpy) Source string--> %s %s%s\n",WHITE,GREEN,rnd_str,RESET);
+    printf("%s(strncpy) Random number for length --> %s %d%s\n",WHITE,GREEN,rnd_num,RESET);
+    printf("%s(strncpy) Initialized string--> %s %s%s\n",WHITE,GREEN,dest_str,RESET);
+    
+}
+
+
+
+/// Part 4 *********************************************************
+/*
+strcmp: This function is used to compare two strings lexicographically. It returns an integer value based on the comparison:
+
+    Returns 0 if the strings are equal.
+    Returns a negative value if the first string is lexicographically less than the second.
+    Returns a positive value if the first string is lexicographically greater than the second.
+*/
+
+// Function to compare two character strings lexicographically.
 int compareStrings(const char* str1, const char* str2) {
     while (*str1 && *str2 && *str1 == *str2) {
         str1++;
@@ -277,44 +321,120 @@ int compareStrings(const char* str1, const char* str2) {
     return *str1 - *str2;
 }
 
+// Function to display the results of compareStrings() function.
+void comapare_strings_display(){
+    char* str1 = generateRandomString();
+    char* str2 = generateRandomString();
+    printf("%s(strcmp) First string --> %s %s%s\n",WHITE,GREEN,str1,RESET);
+    printf("%s(strcmp) Second string --> %s %s%s\n\n",WHITE,GREEN,str2,RESET);
+    int result = compareStrings(str1,str2);
+    if(result == 0){
+        printf("%s compareStrings() function returns %s0%s, which means strings are %sequal.%s\n",WHITE,GREEN,WHITE,GREEN,RESET);
+    } else if(result < 0){
+        printf("%s compareStrings() function returns %s%d%s, which means string 2 is %sgreater%s than string 1.%s\n",WHITE,GREEN,result,WHITE,GREEN,WHITE,RESET);
+    }else{
+        printf("%s compareStrings() function returns %s%d%s, which means string 1 is %sgreater%s than string 2.%s\n",WHITE,GREEN,result,WHITE,GREEN,WHITE,RESET);
+    }
+}
+
 /// Part 5 **************************************************
 
-// Function to concatenate two character strings
-void concatenateStrings(char* dest, const char* src) {
-    while (*dest != '\0') {
-        dest++;
+// Function to concatenate two character strings.
+char* concatenateStrings(const char* str1, const char* str2) {
+    // Determine the length of the first string
+    int len1 = length(str1);
+    // Determine the length of the second string.
+    int len2 = length(str2);
+
+    // Calculate total length including null terminator.
+    int totalLength = len1 + len2 + 1;
+
+    // Allocate memory for the concatenated string.
+    char* result = malloc(totalLength * sizeof(char));
+    if (result == NULL) {
+        return NULL; // if memory allocation fails.
     }
-    while (*src != '\0') {
-        *dest = *src;
-        dest++;
-        src++;
+
+    // Copy the first string to the result.
+    int i;
+    for (i = 0; i < len1; i++) {
+        result[i] = str1[i];
     }
-    *dest = '\0'; // Add null terminator to end the concatenated string
+
+    // Concatenate the second string to the result.
+    for (int j = 0; j < len2; j++) {
+        result[i++] = str2[j];
+    }
+
+    // Add the null terminator.
+    result[i] = '\0';
+
+    // Return the result.
+    return result;
 }
 
-int deto() {
-    // Example usage and testing
-    char str1[20] = "hello";
-    char str2[20] = "world";
-    char str3[20] = "";
+// Function to display the results of the concatenateStrings() function.
+void concatenate_strings_display(){
+    char* string1 = generateRandomString();
+    char* string2 = generateRandomString();
 
-    printf("Length of 'hello': %d\n", length(str1));
-    
-    initializeString(str3, str1);
-    printf("Initialized string: %s\n", str3);
-
-    initializeStringN(str3, str2, 3);
-    printf("Initialized string with first 3 characters of 'world': %s\n", str3);
-
-    printf("Comparison result: %d\n", compareStrings(str1, str2));
-
-    concatenateStrings(str1, str2);
-    printf("Concatenated string: %s\n", str1);
-
-    return 0;
+    printf("%s(strcat) First string --> %s %s%s\n",WHITE,GREEN,string1,RESET);
+    printf("%s(strcat) Second string --> %s %s%s\n\n",WHITE,GREEN,string2,RESET);
+    char* string_cat = concatenateStrings(string1,string2);
+    printf("%s(strcat) Concatenated string --> %s %s%s\n\n",WHITE,GREEN,string_cat,RESET);
 }
 
+//*******************************************************************************************************************************
+// EX 4
 
+/*
+   Write assert tests for Ex_3 functions.
+*/
+
+// Function to test the length() function.
+void test_length_function(){
+    printf("%s(assert) Code to check --> %sassert(9==length('martian58'))%s\n",WHITE,YELLOW,RESET);
+    assert(9==length("martian58"));
+    printf("%s(assert) Code ran without errors%s\n\n",GREEN,RESET);
+}
+
+void test_initializeString_function(){
+    printf("%s(assert) Code to check --> %sassert(initializeString(dest_string_test,src_string_test));%s\n",WHITE,YELLOW,RESET);
+    char src_string_test[100] = "martian58";
+    char dest_string_test[100];
+    assert(initializeString(dest_string_test,src_string_test));
+    printf("%s(assert) Code ran without errors%s\n\n",GREEN,RESET);
+}
+
+void test_initializeStringN_function(){
+    printf("%s(assert) Code to check --> %sassert(initializeStringN(src_stringn_test, num_N));%s\n",WHITE,YELLOW,RESET);
+    char* src_stringn_test = "martian58";
+    int num_N = 2;
+    char* dest_stringn_test = "ma";
+    assert(compareStrings(dest_stringn_test,initializeStringN(src_stringn_test, num_N)) == 0    );
+    printf("%s(assert) Code ran without errors%s\n\n",GREEN,RESET);   
+}
+
+void test_compareStrings_function(){
+    printf("%s(assert) Code to check --> %sassert( 1 <= compareStrings(strng1,strng2));%s\n",WHITE,YELLOW,RESET);
+    char* strng1 = "martian";
+    char* strng2 = "58";
+    int rslt;
+    assert( 1 <= compareStrings(strng1,strng2));
+    printf("%s(assert) Code ran without errors%s\n\n",GREEN,RESET);
+
+}
+
+void test_concatenateStrings_function(){
+    printf("%s(assert) Code to check --> %sassert(string_cat_test == concatenateStrings(srn_g1,srn_g2));%s\n",WHITE,YELLOW,RESET);
+    char* srn_g1 = "martian";
+    char* srn_g2 = "58";
+    char* string_cat_test= "martian58";
+    assert(compareStrings(string_cat_test,concatenateStrings(srn_g1,srn_g2)) == 0);
+    printf("%s(assert) Code ran without errors%s\n\n",GREEN,RESET);
+
+
+}
 
 //*******************************************************************************************************************************
 // EX 5
@@ -325,9 +445,7 @@ void show_pw3_ex5_menu() {
     printf("\n\n");
     printf("%s", WHITE);
     printf("1. Encode with Caesar Cipher.\n");
-    printf("2. Encode with base64\n");
-    printf("3. Encode with base32\n");
-    printf("4. Install Enc\n");
+    printf("2. Install Enc\n");
     printf("%s7. Go back.%s\n",YELLOW,RESET);
     printf("%s8. Exit.%s\n",RED,RESET);
     printf("%s9. Clear screen%s",GREEN,RESET);
