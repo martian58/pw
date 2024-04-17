@@ -328,7 +328,7 @@ void pws_menu(){
             system("clear");
             pw3_start();
         }
-        else if(option=15){
+        else if(option==15){
             system("clear");
             standard_deviation_start();
 
