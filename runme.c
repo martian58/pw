@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 //Local libs
-#include "pws_lib/pw4/cli.h"
+#include "pws_lib/pw4/pw4.h"
 #include "src/terminal_art/controller.h"
 
 // Functions

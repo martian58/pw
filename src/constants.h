@@ -48,7 +48,7 @@ char *RESET = "\033[0m";
 
 
 //Version information.
-char *VERSION="1.3";
+char *VERSION="1.3  ";
 
 // Function to show the fancy main menu :).
 void show_main_menu() {
@@ -220,10 +220,10 @@ void intro() {
 
 // Os detection.
 int detect_os() {
-    // Check if compiling on Windows.
+    // Check Windows.
     #ifdef _WIN32
         return 1;
-    // Check if compiling on macOS.
+    // Check  macOS.
     #elif defined(__APPLE__)
         return 2;
     #else
@@ -236,22 +236,8 @@ void windows_os_detected(){
     int num_valid;
     char option;
     if(detect_os()==1){
-        printf("%sYou have Windows Os, Some functions are not gonna work :(%s\n",YELLOW,RESET);
-        do{
-            printf("%sDo you want to continue anyway(Y/n)?(not recommended): %s",YELLOW,RESET);
-            num_valid=scanf("%c",&option);
-            if(num_valid!=1){
-                printf("%sWrong input!%s\n",RED,RESET);
-            }else{
-                if(tolower(option)=='y'){
-                    printf("This program is written for Unix-like systems. Try running me on ubuntu :)");
-                    exit_program();
-                }else{
-                    exit_program();
-                }
-            }
-        }while(num_valid!=1);
-        
+        printf("%sYou have Windows Os, I was programmed to run on Unix-like systems :(, Try running me on ubuntu :)%s\n",YELLOW,RESET);
+        exit_program();
     }
 }
 

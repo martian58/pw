@@ -267,22 +267,22 @@ char* initializeStringN(const char* src, int n) {
     // Allocate memory for the destination string
     char* dest = malloc((n + 1) * sizeof(char));
     if (dest == NULL) {
-        return NULL; // Memory allocation failed
+        return NULL; // If memory allocation fails.
     }
 
     int i;
     for (i = 0; i < n; i++) {
         if (src[i] == '\0') {
-            break; // Stop copying if the null terminator of src is encountered
+            break; // Stop copying if the "null terminator" of src is encountered.
         }
         dest[i] = src[i];
     }
-    // If n characters have not been copied, pad the remaining characters with null terminators
+    // pad the remaining characters with null terminators
     for (; i < n; i++) {
         dest[i] = '\0';
     }
 
-    dest[i] = '\0'; // Ensure the destination string is null-terminated
+    dest[i] = '\0'; 
 
     return dest;
 }
@@ -341,7 +341,7 @@ void comapare_strings_display(){
 
 // Function to concatenate two character strings.
 char* concatenateStrings(const char* str1, const char* str2) {
-    // Determine the length of the first string
+    // Determine the length of the first string.
     int len1 = length(str1);
     // Determine the length of the second string.
     int len2 = length(str2);
@@ -444,13 +444,13 @@ void show_pw3_ex5_menu() {
     printf("%s************** PW 3 EX 5 MENU ****************%s",GREEN,RESET);
     printf("\n\n");
     printf("%s", WHITE);
-    printf("1. Encode with Caesar Cipher.\n");
+    printf("1. Encypt with Caesar Cipher.\n");
     printf("2. Install Enc\n");
     printf("%s7. Go back.%s\n",YELLOW,RESET);
     printf("%s8. Exit.%s\n",RED,RESET);
     printf("%s9. Clear screen%s",GREEN,RESET);
     printf("\n\n");
-    printf("%sImportant*-> %sDid you know that, You can encrypt your files and folders with my tool 'Enc' :) type 4 and hit enter to get it%s",YELLOW,WHITE,RESET);
+    printf("%sImportant*-> %sDid you know that, You can encrypt your files and folders with my tool 'Enc' :) type 2 and hit enter to get it%s",YELLOW,WHITE,RESET);
     printf("%s", RESET);
 }
 
@@ -562,7 +562,7 @@ int caesar() {
     printSlowly(introText);
     int key;
     int d_key;
-    char text[1000]; // Increased buffer size for text input.
+    char text[1000];
     char choice;
 
      // Input validation is the key!.
@@ -571,7 +571,7 @@ int caesar() {
         printf("%sEnter the key (an integer between 1 and 25): %s",WHITE,RESET);
         while (scanf("%d", &key) != 1 || !validateInput(key, 1, 25)) {
             printf("%s\nInvalid input--> %sPlease enter an integer between 1 and 25: %s",RED,WHITE,RESET);
-            clear_input_buffer();
+            clear_input_buffer(); // Function to clear the buffer, find it inside the constants.h file.
         }
         clear_input_buffer();
     } while (false);
@@ -583,7 +583,7 @@ int caesar() {
         clear_input_buffer(); // Clear buffer after text input.
     } while (!validateText(text));
 
-    // Encrypt the text using Caesar Cipher.
+    // Encrypt the text using Ceasar Cipher.
     char *encrypted_text = caesarCipherEncrypt(key, text);
 
     // Print the encrypted text.
