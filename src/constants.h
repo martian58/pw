@@ -48,7 +48,7 @@ char *RESET = "\033[0m";
 
 
 //Version information.
-char *VERSION="1.3  ";
+char *VERSION="1.3";
 
 // Function to show the fancy main menu :).
 void show_main_menu() {
@@ -227,7 +227,7 @@ int detect_os() {
     #elif defined(__APPLE__)
         return 2;
     #else
-        // Unix-like system.
+        // Check Unix-like system.
         return 0;
     #endif
 }

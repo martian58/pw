@@ -32,12 +32,10 @@ void showGrid() {
     printf("-----------------------------\n");
 }
 
-// Exercise 4: Deciding if a move is possible
 bool isColumnPlayable(int column) {
     return grid[0][column] == ' ';
 }
 
-// Exercise 5: Drop a disc
 void dropDisc(int column, char color) {
     for (int i = ROWS - 1; i >= 0; i--) {
         if (grid[i][column] == ' ') {
@@ -47,7 +45,6 @@ void dropDisc(int column, char color) {
     }
 }
 
-// Exercise 6: Count the aligned disc
 int countAlignedDisc(int row, int column, int deltaRow, int deltaColumn, char color) {
     int count = 0;
     while (row >= 0 && row < ROWS && column >= 0 && column < COLUMNS && grid[row][column] == color) {

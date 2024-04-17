@@ -95,7 +95,7 @@ void showGrid() {
         }
         printf("\n");
     }
-    printf("-----------------------------\n\n"); // Close the grid.
+    printf("--1---2---3---4---5---6---7--\n\n"); // Close the grid.
 }
 
 /**
@@ -164,7 +164,7 @@ bool checkForWin(int row, int column, char color) {
 }
 
 /**
- * @brief Function to recommend a column to play in (random).
+ * @brief Function to recommend a column (random) to play in Easy level.
  * @return The recommended column number.
  */
 int recommendColumn() {
@@ -172,9 +172,9 @@ int recommendColumn() {
 }
 
 /**
- * @brief Function to recommend a column to play in, considering the longest alignment.
+ * @brief Function to recommend a column to play in Medium level, considering the longest alignment.
  * @param color --> The color of the player for which the recommendation is made.
- * @return The recommended column number.
+ * @return column --> The recommended column number.
  */
 int recommendColumnImproved(char color) {
     int maxAlignment = 0;

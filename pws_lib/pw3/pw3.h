@@ -597,7 +597,7 @@ int caesar() {
         do {
             printf("%sEnter the decryption key (an integer between 1 and 25): %s",WHITE,RESET);
             while (scanf("%d", &d_key) != 1 || !validateInput(d_key, 1, 25) || d_key != key) {
-                printf("%sBruhh, %syou already forgot the key :(? %sTry again: %s",RED,YELLOW,BLUE);
+                printf("%sBruhh, %syou already forgot the key :(? %sTry again: %s",RED,YELLOW,BLUE,RESET);
                 clear_input_buffer();
             }
             clear_input_buffer();
