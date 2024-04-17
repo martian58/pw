@@ -57,9 +57,9 @@ void show_main_menu() {
     printf("\n\n");
     printf("%s1. PW_1 (Available)\n",BLUE);
     printf("2. PW_2 (Available)\n");
-    printf("%s3. PW_3 (New)\n",GREEN);
+    printf("3. PW_3 (Available)\n");
+    printf("%s4. PW_4 (New)\n",GREEN);
     printf("%s", WHITE);
-    printf("4. PW_4 (Coming soon)\n");
     printf("5. PW_5 (Coming soon)\n");
     printf("6. PW_6 (Coming soon)\n");
     printf("7. PW_7 (Coming soon)\n");

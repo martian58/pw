@@ -211,6 +211,45 @@ void pw3_start(){
         }
     }
 }
+
+// PW 4
+
+void pw4_start(){
+    show_pw4_menu();
+    bool ex_is_set=false;
+    int ex_num;
+    while(!ex_is_set){
+        ex_num=get_int_input();
+        if(ex_num==1){
+            playGame_Againts_Friend();
+            usleep(3000000);
+            system("clear");
+            pw4_start();
+        }
+        else if(ex_num==2){
+            playGame_Againts_Computer();
+            usleep(3000000);
+            system("clear");
+            pw4_start();
+        }
+        else if(ex_num==7){
+            pws_menu();
+        }
+        else if(ex_num==8){
+            exit_program();
+        }
+        else if(ex_num==9){
+            system("clear");
+            pw4_start();
+        }
+        else{
+            
+            printf("%sInvalid option!%s\n",RED,RESET);
+        }
+    }
+}
+
+
 // Terminal art
 void terminal_art_start(){
     terminal_art_menu();
@@ -328,12 +367,16 @@ void pws_menu(){
             system("clear");
             pw3_start();
         }
+        else if(option==4){
+            system("clear");
+            pw4_start();
+        }
         else if(option==15){
             system("clear");
             standard_deviation_start();
 
         }
-        else if(option>3 && option<8){
+        else if(option>4 && option<8){
             printf("%sComing soon!%s\n",YELLOW,RESET);
         }
         else {
