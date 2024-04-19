@@ -341,10 +341,10 @@ void pws_menu(){
     printf("\n\n");    
     bool option_is_set = false;
     int option;
-    while (!option_is_set) { // Use !option_is_set instead of option_is_set == false
+    while (!option_is_set) { 
         option=get_int_input();
-        if (option == 1) { // Check if the option is within the valid range
-            option_is_set = true; // Set option_is_set to true if a valid option is entered
+        if (option == 1) { 
+            option_is_set = true; 
             system("clear");
             pw1_start();    
         }
@@ -385,13 +385,13 @@ void pws_menu(){
     }
 
 }
-//Controller function
+//Controller function.
 void controller(){
     int answer;
     bool answer_is_set=false;
-    srand(time(NULL)); // Seed the random number generator
-    windows_os_detected();
-    intro(); // Display the intro
+    srand(time(NULL)); 
+    windows_os_detected(); // Detect Windows OS.
+    intro(); // Display the intro.
 
     while(!answer_is_set){
         answer=get_int_input();
@@ -419,7 +419,7 @@ void controller(){
         }
     }
 }
-// Main function
+// Main function.
 int main() {
     controller();
     return 0;
