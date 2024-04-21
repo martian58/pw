@@ -222,13 +222,11 @@ void pw4_start(){
         ex_num=get_int_input();
         if(ex_num==1){
             playGame_Againts_Friend();
-            usleep(3000000);
             system("clear");
             pw4_start();
         }
         else if(ex_num==2){
             playGame_Againts_Computer();
-            usleep(3000000);
             system("clear");
             pw4_start();
         }

@@ -70,15 +70,31 @@ void clearGrid() {
  */
 void playAgain(){
 
-    printf("Wanna play again?(y/n): ");
+    int valid_answer; 
 
-    char opt = get_char_input();
+    char opt;
+    
+    do{
+        printf("Wanna play again?(y/n): ");
 
-    if(opt == 'y'){
+        valid_answer = scanf(" %c", &opt);
 
-        playGame_Againts_Computer(); // Run the function.
+        clear_input_buffer();
 
-    }
+        if(tolower(opt) == 'y'){
+
+            playGame_Againts_Computer(); // Run the function.
+
+        }else if(tolower(opt) == 'n'){
+
+            continue;
+
+        }else{
+            
+            printf("%sWrong Input%s\n",RED,RESET);
+        }
+
+    }while(!valid_answer == 1);
 }
 
 /**
@@ -248,14 +264,49 @@ int recommendColumnImproved(char color) {
     return column;
 }
 
+// Function to choose the level of the game.
+
+int ChooseLevel(){
+    int level_valid;
+    int level;
+    system("clear");
+    printf("%s**************** Connect 4 ******************%s\n\n",GREEN,RESET);
+    printf(" %sChoose the level \n%s",PINK,RESET);
+    printf("%s1. Easy (random)\n%s",GREEN,RESET);
+    printf("%s2. Medium (longest alignment)\n%s",BLUE,RESET);
+    printf("%s3. Hard (hahahahh) \n%s",YELLOW,RESET);
+    printf("%s4. Impossible (magic :) )\n\n%s",RED,RESET);
+
+
+    do{
+        printf("%s(connect4) Enter the level number: %s",PINK,RESET);
+
+        level_valid = scanf("%d", &level);
+
+        clear_input_buffer();
+
+        if(level_valid != 1 || level > 4){
+
+            printf("%sWrong input!\n%s",RED,RESET);
+        }
+
+    }while(level_valid != 1 || level > 4);
+
+    return level;
+}
+
 /**
  * @brief Function to play a game against the computer.
  */
 void playGame_Againts_Computer() {
-
+    int level;
     char currentPlayer = 'o'; // Human player starts with yellow(o).
 
     system("clear"); // Clear the screen.
+
+    level = ChooseLevel();
+
+    system("clear");
 
     clearGrid(); // Clear the Game board (grid).
 
@@ -286,8 +337,13 @@ void playGame_Againts_Computer() {
             column--;
 
         } else {
+            if(level == 1){
 
-            column = recommendColumn('*'); // Computer plays red(*).
+                column = recommendColumn('*'); // Computer plays red(*).
+
+            }else if(level == 2){
+                column = recommendColumnImproved('*');
+            }
 
             printf("%sComputer playing.........%s\n",YELLOW,RESET);
 
@@ -313,11 +369,17 @@ void playGame_Againts_Computer() {
 
                 you_won();
 
-                usleep(300000);
+                usleep(100000);
+
+                playAgain();
 
             } else {
 
-                printf("%sComputer wins!%s\n",RED,RESET);
+                you_lost();
+
+                usleep(100000);
+
+                playAgain();    
             }
 
             break;
@@ -396,9 +458,13 @@ void playGame_Againts_Friend(){
 
                 printf("%s Yellow player won!\n%s",GREEN,RESET);
 
+                playAgain();
+
             } else {
 
                 printf("%s Red player won!%s\n",RED,RESET);
+
+                playAgain();
             }
             break;
         }
