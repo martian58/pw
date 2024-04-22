@@ -68,7 +68,7 @@ void clearGrid() {
 /**
  * @brief Function for playing again.
  */
-void playAgain(){
+void playAgain(int mode){
 
     int valid_answer; 
 
@@ -79,15 +79,23 @@ void playAgain(){
 
         valid_answer = scanf(" %c", &opt);
 
-        clear_input_buffer();
+        clear_input_buffer(); // Clear the input buffer.
 
         if(tolower(opt) == 'y'){
 
-            playGame_Againts_Computer(); // Run the function.
+            if(mode == 1){
+
+                playGame_Againts_Computer(); // Run the function to play the first mode.
+
+            }else{
+
+                playGame_Againts_Friend(); // Run the function to play second mode.
+            }
+
 
         }else if(tolower(opt) == 'n'){
 
-            continue;
+            continue; // Continue to the rest of the code.
 
         }else{
             
@@ -216,7 +224,7 @@ bool checkForWin(int row, int column, char color) {
  * @brief Function to recommend a column (random) to play in Easy level.
  * @return The recommended column number.
  */
-int recommendColumn() {
+int recommendColumnRandom() {
 
     return rand() % (COLUMNS); // return a random number between 1 and 7.
 }
@@ -226,7 +234,7 @@ int recommendColumn() {
  * @param color --> The color of the player for which the recommendation is made.
  * @return column --> The recommended column number.
  */
-int recommendColumnImproved(char color) {
+int recommendColumnLongestAlign(char color) {
 
     int maxAlignment = 0;
 
@@ -264,11 +272,12 @@ int recommendColumnImproved(char color) {
     return column;
 }
 
-// Function to choose the level of the game.
-
+/**
+* @brief Function to choose the level of the game.
+*/
 int ChooseLevel(){
     int level_valid;
-    int level;
+    int level; // Variable to store the level that the player want.
     system("clear");
     printf("%s**************** Connect 4 ******************%s\n\n",GREEN,RESET);
     printf(" %sChoose the level \n%s",PINK,RESET);
@@ -339,10 +348,10 @@ void playGame_Againts_Computer() {
         } else {
             if(level == 1){
 
-                column = recommendColumn('*'); // Computer plays red(*).
+                column = recommendColumnRandom('*'); // Computer plays red(*).
 
             }else if(level == 2){
-                column = recommendColumnImproved('*');
+                column = recommendColumnLongestAlign('*');
             }
 
             printf("%sComputer playing.........%s\n",YELLOW,RESET);
@@ -371,7 +380,7 @@ void playGame_Againts_Computer() {
 
                 usleep(100000);
 
-                playAgain();
+                playAgain(1);
 
             } else {
 
@@ -379,7 +388,7 @@ void playGame_Againts_Computer() {
 
                 usleep(100000);
 
-                playAgain();    
+                playAgain(1);    
             }
 
             break;
@@ -458,13 +467,13 @@ void playGame_Againts_Friend(){
 
                 printf("%s Yellow player won!\n%s",GREEN,RESET);
 
-                playAgain();
+                playAgain(2);
 
             } else {
 
                 printf("%s Red player won!%s\n",RED,RESET);
 
-                playAgain();
+                playAgain(2);
             }
             break;
         }
@@ -527,7 +536,7 @@ void intro_connect4() {
 void you_won() {
     // Clear screen.
     printf("\033c");
-    // Define color codes.
+    // Define color codes.  
     const char *colors[] = {"34", "32", "33", "36", "35"};
 
     // ASCII art lines.
