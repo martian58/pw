@@ -5,6 +5,7 @@
  * Description: CLI (Command Line Interface) version of PW 4 (Connect 4 game). 
  */
 
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -31,6 +32,8 @@ void playGame_Againts_Friend();
 void intro_connect4();
 void you_won();
 void you_lost();
+int countMaxAlignedDisc(int row, int column, char color);
+int calculateMaxAlignment(char color);
 
 
 // Function to show the menu of pw 4.
@@ -148,7 +151,7 @@ bool isColumnPlayable(int column) {
     /*
     * A column is playable if it has empty cell.
     */
-    return grid[0][column] == ' ';
+    return grid[0][column] == ' '; // Returns true if column is playable.
 }
 
 /**
@@ -162,12 +165,13 @@ void dropDisc(int column, char color) {
 
         if (grid[i][column] == ' ') {
 
-            grid[i][column] = color;
+            grid[i][column] = color; // Color represents the Yellow and Red players.
 
             break;
         }
     }
 }
+
 
 /**
  * @brief Function for counting the aligned discs.
@@ -179,17 +183,14 @@ void dropDisc(int column, char color) {
  * @return  count -->  The count of aligned discs in the specified direction.
  */
 int countAlignedDisc(int row, int column, int deltaRow, int deltaColumn, char color) {
-
     int count = 0;
 
     while (row >= 0 && row < ROWS && column >= 0 && column < COLUMNS && grid[row][column] == color) {
-
         count++;
-
         row += deltaRow;
-
         column += deltaColumn;
     }
+
     return count;
 }
 
@@ -200,24 +201,92 @@ int countAlignedDisc(int row, int column, int deltaRow, int deltaColumn, char co
  * @param color --> The color of the last played disc.
  * @return true --> if the last move resulted in a win, false otherwise.
  */
-bool checkForWin(int row, int column, char color) {
 
-    int deltas[4][2] = {{0, 1}, {1, 0}, {1, 1}, {-1, 1}}; // directions: right, down, diagonal down-right, diagonal up-right.
 
-    for (int i = 0; i < 4; i++) {
+int checkFour(char *grid, int a, int b, int c, int d) {
 
-        int count = 1; // Count the current disc.
+    return (grid[a] != ' ' && grid[a] == grid[b] && grid[b] == grid[c] && grid[c] == grid[d]);
+}
 
-        count += countAlignedDisc(row + deltas[i][0], column + deltas[i][1], deltas[i][0], deltas[i][1], color);
+/**
+ * @brief Checks for a win condition horizontally on the game board.
+ * @param grid The game board represented as a character array.
+ * @return 1 if a win condition is found horizontally, 0 otherwise.
+ */
+int checkHorizontal(char *grid) {
 
-        count += countAlignedDisc(row - deltas[i][0], column - deltas[i][1], -deltas[i][0], -deltas[i][1], color);
+    for (int row = 0; row < ROWS; row++) {
 
-        if (count >= 4) {
+        for (int col = 0; col < COLUMNS - 3; col++) {
 
-            return true; // Player won.
+            int idx = COLUMNS * row + col;
+
+            if (checkFour(grid, idx, idx + 1, idx + 2, idx + 3)) {
+
+                return 1;
+            }
         }
     }
-    return false; // Game continues.
+    return 0;
+}
+
+/**
+ * @brief Checks for a win condition vertically on the game board.
+ * @param grid The game board represented as a character array.
+ * @return 1 if a win condition is found vertically, 0 otherwise.
+ */
+int checkVertical(char *grid) {
+
+    for (int row = 0; row < ROWS - 3; row++) {
+
+        for (int col = 0; col < COLUMNS; col++) {
+
+            int idx = COLUMNS * row + col;
+
+            if (checkFour(grid, idx, idx + COLUMNS, idx + 2 * COLUMNS, idx + 3 * COLUMNS)) {
+
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+/**
+ * @brief Checks for a win condition diagonally on the game board.
+ * @param grid The game board represented as a character array.
+ * @return 1 if a win condition is found diagonally, 0 otherwise.
+ */
+int checkDiagonal(char *grid) {
+
+    for (int row = 0; row < ROWS - 3; row++) {
+
+        for (int col = 0; col < COLUMNS - 3; col++) {
+
+            int idx = COLUMNS * row + col;
+
+            if (checkFour(grid, idx, idx + COLUMNS + 1, idx + 2 * COLUMNS + 2, idx + 3 * COLUMNS + 3)) {
+
+                return 1;
+            }
+
+            if (checkFour(grid, idx + 3, idx + COLUMNS + 2, idx + 2 * COLUMNS + 1, idx + 3 * COLUMNS)) {
+
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+/**
+ * @brief Checks for a win condition on the game board.
+ * @param board The game board represented as a character array.
+ * @return 1 if a win condition is found, 0 otherwise.
+ */
+int checkWin(char *grid) {
+
+    return (checkHorizontal(grid) || checkVertical(grid) || checkDiagonal(grid));
 }
 
 /**
@@ -273,6 +342,224 @@ int recommendColumnLongestAlign(char color) {
 }
 
 /**
+ * @brief Function to recommend a column to play in Hard level.
+ * @param color The color of the player.
+ * @return The recommended column number.
+ */
+int recommendColumnHard(char color) {
+
+    int maxAlignment = 0;
+
+    int bestColumns[COLUMNS];
+
+    int numBestColumns = 0;
+
+    for (int col = 0; col < COLUMNS; col++) {
+
+        if (isColumnPlayable(col)) {
+
+            for (int row = ROWS - 1; row >= 0; row--) {
+
+                if (grid[row][col] == ' ') {
+
+                    // Simulate placing a disc for the opponent in this column for cheching.
+
+                    grid[row][col] = (color == 'o') ? '*' : 'o';
+
+                    // Check if the opponent wins with this move.
+
+                    if (checkWin(*grid)) { // Check if the player wins with this move.
+
+                        // Reset the grid to its original state.
+
+                        grid[row][col] = ' ';
+
+                        return col; // Block the opponent's winning move.
+                    }
+
+                    // Calculate the maximum alignment for the opponent after this move.
+
+                    int alignment = calculateMaxAlignment(color);
+                    
+                    // Undo the simulated move.
+
+                    grid[row][col] = ' ';
+
+                    if (alignment > maxAlignment) {
+
+                        maxAlignment = alignment;
+
+                        numBestColumns = 0;
+
+                        bestColumns[numBestColumns++] = col;
+
+                    } else if (alignment == maxAlignment) {
+
+                        // Add this column to the list of best columns.
+
+                        bestColumns[numBestColumns++] = col;
+                    }
+
+                    // If the computer has three discs in a row, complete the row.
+                    if (alignment == 3) {
+
+                        if (rand() % 100 < 10) {
+
+                            return recommendColumnRandom();
+                        }
+                        return col;
+                    }
+
+                    break;
+                }
+            }
+        }
+    }
+
+    // Randomly choose one of the best columns.
+    if (numBestColumns > 0) {
+
+        int randomIndex = rand() % numBestColumns;
+
+        return bestColumns[randomIndex];
+    }
+
+    // If no best columns were found choose a ramdom column.
+    return recommendColumnRandom();
+}
+
+
+
+/**
+ * @brief Function to recommend a column to prevent player from winning in Impossible level.
+ * @param color The color of the player.
+ * @return bestColumn The recommended column number to prevent the player's winning move.
+ */
+int recommendColumnImpossible(char color) {
+
+    int maxAlignment = 0;
+
+    int bestColumn = 0;
+
+    for (int col = 0; col < COLUMNS; col++) {
+
+        if (isColumnPlayable(col)) {
+
+            for (int row = ROWS - 1; row >= 0; row--) {
+
+                if (grid[row][col] == ' ') {
+
+                    // Simulate placing a disc for the oponent in this column for cheching.
+
+                    grid[row][col] = (color == 'o') ? '*' : 'o';
+
+                    // Check if the opponent wins with this move.
+
+                    if (checkWin(*grid)) {
+
+                        // Reset the grid to its orginal state.
+
+                        grid[row][col] = ' ';
+
+                        return col; // Block the opponent's winning move.
+                    }
+
+                    // Calculate the maximum alignment for the opponent after this move.
+                    int alignment = calculateMaxAlignment(color);
+
+                    if (alignment > maxAlignment) {
+
+                        maxAlignment = alignment;
+
+                        bestColumn = col;
+                    }
+
+                    // Reset the grid to its orginal state.
+
+                    grid[row][col] = ' ';
+
+                   // If the computer has three discs in a row, complete the row to win.
+                    if (alignment == 3) {
+                        return col;
+                    }
+
+                    break;
+                }
+            }
+        }
+    }
+
+    return bestColumn;
+}
+
+/**
+ * @brief Function to calculate the maximum alignment for the opponent after making a move.
+ * @param color The color of the player.
+ * @return maxAlignment The maximum alignment for the opponent.
+ */
+int calculateMaxAlignment(char color) {
+
+    int maxAlignment = 0;
+
+    for (int col = 0; col < COLUMNS; col++) {
+
+        if (isColumnPlayable(col)) {
+
+            for (int row = ROWS - 1; row >= 0; row--) {
+
+                if (grid[row][col] == ' ') {
+
+                    // Simulate placing a disc for the oponent in this column.
+
+                    grid[row][col] = (color == 'o') ? '*' : 'o';
+                    
+                    // Calculate alignment for the opponent after this move.
+
+                    int alignment = countMaxAlignedDisc(row, col, (color == 'o') ? '*' : 'o');
+
+                    if (alignment > maxAlignment) {
+
+                        maxAlignment = alignment;
+                    }
+
+                    // Reset the grid to its orginal state.
+                    grid[row][col] = ' ';
+
+                    break;
+                }
+            }
+        }
+    }
+    return maxAlignment;
+}
+
+/**
+ * @brief Function to count the maximum aligned discs for the opponent.
+ * @param row The row index of the current cell.
+ * @param column The column index of the current cell.
+ * @param color The color of the opponent's disc.
+ * @return The count of maximum aligned discs for the opponent.
+ */
+int countMaxAlignedDisc(int row, int column, char color) {
+
+    int maxAlignment = 0;
+
+    int deltas[4][2] = {{0, 1}, {1, 0}, {1, 1}, {-1, 1}};
+
+    for (int i = 0; i < 4; i++) {
+
+        int aligned = countAlignedDisc(row + deltas[i][0], column + deltas[i][1], deltas[i][0], deltas[i][1], color) +
+                      countAlignedDisc(row - deltas[i][0], column - deltas[i][1], -deltas[i][0], -deltas[i][1], color) - 1;
+        if (aligned > maxAlignment) {
+
+            maxAlignment = aligned;
+        }
+    }
+    return maxAlignment;
+}
+
+
+/**
 * @brief Function to choose the level of the game.
 */
 int ChooseLevel(){
@@ -294,12 +581,12 @@ int ChooseLevel(){
 
         clear_input_buffer();
 
-        if(level_valid != 1 || level > 4){
+        if(level_valid != 1 || (level > 4 || level < 1)){
 
             printf("%sWrong input!\n%s",RED,RESET);
         }
 
-    }while(level_valid != 1 || level > 4);
+    }while(level_valid != 1 || level > 4 || level <1);
 
     return level;
 }
@@ -319,7 +606,7 @@ void playGame_Againts_Computer() {
 
     clearGrid(); // Clear the Game board (grid).
 
-    showGrid(); // Show the board.
+    showGrid(); // Show the boarrd.
 
     while (true) {
 
@@ -348,10 +635,19 @@ void playGame_Againts_Computer() {
         } else {
             if(level == 1){
 
-                column = recommendColumnRandom('*'); // Computer plays red(*).
+                column = recommendColumnRandom('*'); // For easy mode.
 
             }else if(level == 2){
-                column = recommendColumnLongestAlign('*');
+
+                column = recommendColumnLongestAlign('*'); // For meduim mode.
+            
+            }else if(level ==3){
+
+                column = recommendColumnHard('*'); // For hard mode.
+
+            }else if(level == 4){
+
+                column = recommendColumnImpossible('*'); // For impossible mode.
             }
 
             printf("%sComputer playing.........%s\n",YELLOW,RESET);
@@ -372,11 +668,11 @@ void playGame_Againts_Computer() {
 
         showGrid();
 
-        if (checkForWin(ROWS - 1, column, currentPlayer)) {
+        if (checkWin(*grid)) {
 
             if (currentPlayer == 'o') {
 
-                you_won();
+                you_won(); // Show win message.
 
                 usleep(100000);
 
@@ -384,7 +680,7 @@ void playGame_Againts_Computer() {
 
             } else {
 
-                you_lost();
+                you_lost(); // Show lost message.
 
                 usleep(100000);
 
@@ -445,7 +741,7 @@ void playGame_Againts_Friend(){
 
             scanf("%d", &fr_column);
             
-            fr_column--; // adjust to 0-indexed  
+            fr_column--; 
         }
 
         if (fr_column < 0 || fr_column >= COLUMNS || !isColumnPlayable(fr_column)) {
@@ -461,7 +757,7 @@ void playGame_Againts_Friend(){
 
         showGrid();
 
-        if (checkForWin(ROWS - 1, fr_column, fr_currentPlayer)) {
+        if (checkWin(*grid)) {
 
             if (fr_currentPlayer == 'o') {
 
@@ -497,12 +793,12 @@ void intro_connect4() {
 
     // ASCII art lines.
     const char *lines[] = {
-        "@@@@@@@   @@@@@@   @@     @@  @@     @@  @@@@@@@   @@@@@@@@@       @@    ",
-        "@@@@@@@  @@@@@@@@  @@@    @@  @@@    @@  @@@@@@@   @@@@@@@@@      @@@      ",
-        "@@       @@    @@  @@ @@  @@  @@ @@  @@  @@           @@        @@ @@    ",
-        "@@       @@    @@  @@  @@ @@  @@  @@ @@  @@           @@      @@@@@@@@@@   ",
-        "@@@@@@@  @@@@@@@@  @@    @@@  @@    @@@  @@@@@@@      @@           @@     ",
-        "@@@@@@@   @@@@@@   @@     @@  @@     @@  @@@@@@@      @@           @@     ",
+        "@@@@@@@   @@@@@@   @@     @@  @@     @@  @@@@@@@   @@@@@@@   @@@@@@@@@       @@    ",
+        "@@@@@@@  @@@@@@@@  @@@    @@  @@@    @@  @@        @@@@@@@   @@@@@@@@@      @@@      ",
+        "@@       @@    @@  @@ @@  @@  @@ @@  @@  @@@@@@@   @@           @@        @@ @@    ",
+        "@@       @@    @@  @@  @@ @@  @@  @@ @@  @@        @@           @@      @@@@@@@@@@   ",
+        "@@@@@@@  @@@@@@@@  @@    @@@  @@    @@@  @@@@@@@   @@@@@@@      @@           @@     ",
+        "@@@@@@@   @@@@@@   @@     @@  @@     @@  @@@@@@@   @@@@@@@      @@           @@     ",
     };
 
     // Print each line with color transition and a random character.
@@ -523,7 +819,7 @@ void intro_connect4() {
 
     printf("\n\n");
 
-    // Welcome message,Author and GitHub reference.
+    // Welcome message.
     printf("\033[1;36m");
     printf("Welcome to Connect 4 \n");
     printf("\033[0m");
@@ -550,7 +846,7 @@ void you_won() {
     "    @@@      @@@@@@@@  @@@@@@@@            @@      @@        @@@@@@@@  @@      @@    @@ @@  ",
     };
 
-    // Print each line with color transition and a random character.
+    // Print each line with color transition.
     printf("\n\n");
     for (int i = 0; i < 7; i++) {
         char line_copy[strlen(lines[i]) + 1];
@@ -585,7 +881,7 @@ void you_lost() {
     "    @@@      @@@@@@@@  @@@@@@@@           @@@@@@@@@@@   @@@@@@@@   @@@@@@@@@@        @@         @@ @@ :(",
     };
 
-    // Print each line with color transition and a random character.
+    // Print each line with color transition.
     printf("\n\n");
     for (int i = 0; i < 7; i++) {
         char line_copy[strlen(lines[i]) + 1];
