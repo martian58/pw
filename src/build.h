@@ -1,6 +1,6 @@
 /*
   I'm not sure if i'm ever gonna use this. If i dont use and forget to remove, this was meant 
-  to install python and flask and maybe other packages for better GUI(web).
+  to install python and flask and maybe other packages for better GUI.
 */
 #include <stdio.h>
 #include <stdlib.h>

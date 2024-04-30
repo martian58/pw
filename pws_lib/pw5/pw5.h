@@ -1,0 +1,322 @@
+/*
+ * File:        pw5.h
+ * Authors:     Fuad Alizada, Mehdi Hasanli, Tural Gadirov, Togrul Abdullazada
+ * Date:        April 27, 2024
+ * Description: Exercises of the practical work 5. 
+ */
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <ctype.h>
+#include <time.h>
+#include <string.h>
+#include <stdbool.h>
+
+// Local libs.
+#include "../pw4/pw4.h"
+
+// Functions
+void human_guess();
+void computer_guess();
+
+
+// Function to show the menu of pw 4.
+void show_pw5_menu() {
+    printf("\n\n");
+    printf("%s************** PW 5  MENU ****************%s",GREEN,RESET);
+    printf("\n\n");
+    printf("%s", WHITE);
+    printf("1. Ex_1 (Square root).\n");
+    printf("2. Ex_2 (Number Guessing Game). \n");
+    printf("2. Ex_3 (Another Game). \n");
+    printf("%s7. Go back.%s\n",YELLOW,RESET);
+    printf("%s8. Exit.%s\n",RED,RESET);
+    printf("%s9. Clear screen%s",GREEN,RESET);
+    printf("\n\n");
+    printf("%sImportant*-> %sSource codes of these exercises are in 'pws_lib/pw5' directory.%s",YELLOW,WHITE,RESET);
+    printf("%s", RESET);
+}
+
+//************************************************************************************************************************************
+// EX 1
+
+
+/**
+ * @brief Calculates the square root of a real number using a specific sequence.
+ * @param num The real number for which the square root is to be calculated.
+ * @return u0 The square root of the input real number.
+ */
+double squareRoot(double num) {
+
+    double precis = 0.00001; // Precision here.
+
+    double u0 = num; // Initial.
+    
+    // Iterate until the difference is less than precis.
+    while (true) {  
+
+        double u1 = (u0 + num / u0) / 2.0;
+        
+        // If the differences is less than precis.
+
+        if (u0 - u1 < precis && u1 - u0 < precis) {
+
+            return u1;
+        }
+        
+        u0 = u1;
+    }
+}
+
+
+int sqr_root() {
+
+    double num; 
+
+    bool validInput;
+    
+    // Get the input.
+    do {
+
+        printf("%sEnter a real number: %s", WHITE,RESET);
+
+        if (scanf("%lf", &num) == 1) {
+
+            validInput = true; 
+
+        } else {
+
+            printf("%sInvalid input. Please enter a valid real number.%s\n",RED,RESET);
+
+            // Clear the input buffer.
+
+            clear_input_buffer();
+        }
+    } while (!validInput);
+    
+    // Calculate the root.
+
+    printf("%s\nSquare root of %s%lf %sis %s%lf\n%s",WHITE,GREEN, num,WHITE,GREEN, squareRoot(num),RESET);
+    
+    return 0;
+}
+
+
+//************************************************************************************************************************************************
+// EX 2
+
+void intro_number_guess() {
+
+    // Define color codes.
+    const char *colors[] = {"34", "32", "33", "36", "35"};
+
+    // ASCII art lines.
+    const char *lines[] = {
+     "  ______                                                 __    __                         ",
+    " /      \\                                               |  \\  |  \\                        ",
+    "|  $$$$$$\\ __    __   ______    _______   _______       | $$\\ | $$ __    __  ______ ____  ",
+    "| $$ __\\$$|  \\  |  \\ /      \\  /       \\ /       \\      | $$$\\| $$|  \\  |  \\|      \\    \\ ",
+    "| $$|    \\| $$  | $$|  $$$$$$\\|  $$$$$$$|  $$$$$$$      | $$$$\\ $$| $$  | $$| $$$$$$\\$$$$\\ ",
+    "| $$ \\$$$$| $$  | $$| $$    $$ \\$$    \\  \\$$    \\       | $$\\$$ $$| $$  | $$| $$ | $$ | $$ ",
+    "| $$__| $$| $$__/ $$| $$$$$$$$ _\\$$$$$$\\ _\\$$$$$$\\      | $$ \\$$$$| $$__/ $$| $$ | $$ | $$  ",
+    "\\$$    $$  \\$$    $$ \\$$     \\|       $$|       $$      | $$  \\$$$ \\$$    $$| $$ | $$ | $$  ",
+    " \\$$$$$$    \\$$$$$$   \\$$$$$$$ \\$$$$$$$  \\$$$$$$$        \\$$   \\$$  \\$$$$$$  \\$$  \\$$  \\$$  "
+    };
+
+    // Print each line with color transition and a random character.
+    printf("\n\n");
+    for (int i = 0; i < 9; i++) {
+        char line_copy[strlen(lines[i]) + 1];
+        strcpy(line_copy, lines[i]);
+        char rnd_char = 'O';
+        for (int j = 0; line_copy[j] != '\0'; j++) {
+            if (line_copy[j] == '@') {
+                line_copy[j] = rnd_char;
+            }
+        }
+        print_colored_line(line_copy, colors[i % 5], colors[(i + 1) % 5]);
+        usleep(200000); // Sleep for 0.2 seconds.
+    }
+
+
+    printf("\n\n");
+
+    // Welcome message.
+    printf("\033[1;36m");
+    printf("Welcome to  Guess Num \n");
+    printf("\033[0m");
+    printf("%sVersion: %s\n",PINK,VERSION);
+    printf("\033[1;33m");
+    usleep(300000);
+    printf("\033[0m");
+}
+
+// ex 2 menu
+void show_pw5_ex2_menu() {
+    intro_number_guess();
+    printf("\n");
+    printf("%s",WHITE);
+    printf("1. Human player gueses.\n");
+    printf("2. Computer gueses. \n");
+    printf("%s7. Go back.%s\n",YELLOW,RESET);
+    printf("%s8. Exit.%s\n",RED,RESET);
+    printf("%s9. Clear screen%s",GREEN,RESET);
+    printf("\n\n");
+    printf("%sImportant*-> %sSource codes of these exercises are in 'pws_lib/pw5' directory.%s",YELLOW,WHITE,RESET);
+    printf("%s", RESET);
+}
+
+int play_again(int mode){
+    char response;
+    // Ask if the user wants to continue playing.
+    printf("Wanna play again? (y/n): ");
+    scanf(" %c", &response);
+    if(tolower(response) == 'y'){
+        if(mode ==1){
+            printf("\033c");
+            human_guess();
+        }else{
+            printf("\033c");
+            computer_guess();
+        }
+    }
+}
+
+void human_guess() {
+    int target, guess;
+    char response;
+    int tries = 1;
+    bool validInput;
+
+    // Seed the random number generator
+    srand(time(NULL));
+
+    // Generate a random number between 1 and 999
+    target = rand() % 999 + 1;
+    
+    intro_number_guess();
+    // User guesses the number
+    do {
+         // Get the input.
+        do {
+
+            printf("\n%sEnter a number(1-999): %s",WHITE,RESET);
+
+            if (scanf("%d", &guess) == 1) {
+
+                validInput = true; 
+
+            } else {
+
+                printf("%sInvalid input. Please enter a valid real number.%s\n",RED,RESET);
+
+                // Clear the input buffer.
+
+                while (getchar() != '\n');
+            }
+        } while (!validInput);
+
+        // Check if the guess is correct
+        if (guess == target) {
+            if(tries <=5){
+                printf("\n\n%sYou lucky..... :)\n\n%s",PINK,RESET);
+                printf("%sTries:%s %d %s\n",WHITE,GREEN, tries,RESET);
+                printf("%sScore:%s Lucky%s\n",WHITE,PINK,RESET);
+                break;
+            }
+            else if(tries <=10){
+                printf("%s\nCongratulations! I see you know the Algorithm.\n\n%s",GREEN,RESET);
+                printf("%sTries:%s %d %s\n",WHITE,GREEN, tries,RESET);
+                printf("%sScore:%s Excellent%s\n",WHITE,GREEN,RESET);
+                break;
+            }
+            else if(20>=tries>=10){
+                printf("%s\nCongrats! You found the number, not bad, not bad :)\n\n%s",GREEN,RESET);
+                printf("%sTries:%s %d %s\n",WHITE,GREEN, tries,RESET);
+                printf("%sScore:%s Good%s\n",WHITE,BLUE,RESET);
+                break;
+            }
+            else{
+
+                printf("%s\nDont you dare to play this game again bruhhhh -_- %s\n\n",RED,RESET);
+                printf("%sTries:%s %d %s\n",WHITE,RED, tries,RESET);
+                printf("%sScore:%s Terrible%s\n",WHITE,RED,RESET);
+                break;
+            }
+        } else if (guess < target) {
+            printf("%sMy number is greater than %s%d.%s\n",WHITE,GREEN, guess,RESET);
+        } else {
+            printf("%sMy number is smaller than %s%d.%s\n",WHITE,PINK, guess,RESET);
+
+        }
+        
+        tries++;
+    } while (true);
+
+    play_again(1);
+
+}
+
+
+
+// Function to play with computer.
+void computer_guess() {
+    int target, guess;
+    int min = 1; 
+    int max = 999; 
+    int tries = 1;
+    bool validInput;
+
+    intro_number_guess();
+
+    // Get the input (the number for the computer to guess).
+    do {
+        printf("\n%sEnter a number for the computer to guess (1-999): %s", WHITE, RESET);
+        if (scanf("%d", &target) == 1 && target >= 1 && target <= 999) {
+            validInput = true;
+        } else {
+            printf("%sInvalid input. Please enter a number between 1 and 999.%s\n", RED, RESET);
+            // Clear the input buffer.
+            while (getchar() != '\n');
+            validInput = false;
+        }
+    } while (!validInput);
+
+    // Computer's guessing algorithm (binary search-like).
+    do {
+        // Calculate the guess.
+        guess = (min + max) / 2;
+        
+        // Display the guess.
+        printf("\n%sComputer guesses:%s %d%s\n",WHITE,GREEN, guess,RESET);
+
+        // Get the user's feedback.
+        char feedback;
+        do {
+            printf("%sGive feedback 'f'(found),'g'(greater),'s'(smaller): %s",WHITE,RESET);
+            scanf(" %c", &feedback);
+        } while (feedback != 'f' && feedback != 'g' && feedback != 's');
+
+        // Adjust the range based on user's feedback.
+        if (feedback == 'f') {
+            printf("%sThe computer found the number %d in %d tries.%s\n", GREEN, target, tries, RESET);
+            break;
+        } else if (feedback == 'g') {
+            min = guess + 1; // Adjust the minimum range
+        } else {
+            max = guess - 1; // Adjust the maximum range
+        }
+        
+        tries++;
+    } while (min <= max);
+
+    play_again(2);
+}
+
+
+
+
+//**************************************************************************************************************************************
+// Ex 3

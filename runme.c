@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 //Local libs
-#include "pws_lib/pw4/pw4.h"
+#include "pws_lib/pw5/pw5.h"
 #include "src/terminal_art/controller.h"
 
 // Functions
@@ -15,6 +15,7 @@ void pw1_start();
 void controller();
 void pw2_start();
 void pw3_start();
+void pw5_ex2_start();
 
 // PW 1
 void pw1_start(){
@@ -247,6 +248,72 @@ void pw4_start(){
     }
 }
 
+// PW 5
+void pw5_start(){
+    show_pw5_menu();
+    bool ex_is_set=false;
+    int ex_num;
+    while(!ex_is_set){
+        ex_num=get_int_input();
+        if(ex_num==1){
+            sqr_root();
+        }
+        else if(ex_num==2){
+            system("clear");
+            pw5_ex2_start();
+        }
+        else if(ex_num==7){
+            pws_menu();
+        }
+        else if(ex_num==8){
+            exit_program();
+        }
+        else if(ex_num==9){
+            system("clear");
+            pw5_start();
+        }
+        else{
+            
+            printf("%sInvalid option!%s\n",RED,RESET);
+        }
+    }
+}
+
+// Pw5 ex 2
+void pw5_ex2_start(){
+    show_pw5_ex2_menu();
+    bool ex_is_set=false;
+    int ex_num;
+    while(!ex_is_set){
+        ex_num=get_int_input();
+        if(ex_num==1){
+            system("clear");
+            human_guess();
+            system("clear");
+            pw5_ex2_start();
+        }
+        else if(ex_num==2){
+            system("clear");
+            computer_guess();
+            system("clear");
+            pw5_ex2_start();
+        }
+        else if(ex_num==7){
+            pw5_start();
+        }
+        else if(ex_num==8){
+            exit_program();
+        }
+        else if(ex_num==9){
+            system("clear");
+            pw5_ex2_start();
+        }
+        else{
+            
+            printf("%sInvalid option!%s\n",RED,RESET);
+        }
+    }
+}
 
 // Terminal art
 void terminal_art_start(){
@@ -369,12 +436,15 @@ void pws_menu(){
             system("clear");
             pw4_start();
         }
+        else if(option==5){
+            system("clear");
+            pw5_start();
+        }
         else if(option==15){
             system("clear");
             standard_deviation_start();
-
         }
-        else if(option>4 && option<8){
+        else if(option>5 && option<8){
             printf("%sComing soon!%s\n",YELLOW,RESET);
         }
         else {
