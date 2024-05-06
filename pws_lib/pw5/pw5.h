@@ -107,6 +107,7 @@ int sqr_root() {
 //************************************************************************************************************************************************
 // EX 2
 
+// Intro for the Guess Num game.
 void intro_number_guess() {
 
     // Define color codes.
@@ -127,16 +128,24 @@ void intro_number_guess() {
 
     // Print each line with color transition and a random character.
     printf("\n\n");
+
     for (int i = 0; i < 9; i++) {
+
         char line_copy[strlen(lines[i]) + 1];
+
         strcpy(line_copy, lines[i]);
+
         char rnd_char = 'O';
+
         for (int j = 0; line_copy[j] != '\0'; j++) {
+
             if (line_copy[j] == '@') {
+
                 line_copy[j] = rnd_char;
             }
         }
         print_colored_line(line_copy, colors[i % 5], colors[(i + 1) % 5]);
+
         usleep(200000); // Sleep for 0.2 seconds.
     }
 
@@ -170,30 +179,42 @@ void show_pw5_ex2_menu() {
 
 int play_again(int mode){
     char response;
+
     // Ask if the user wants to continue playing.
     printf("Wanna play again? (y/n): ");
+
     scanf(" %c", &response);
+
     if(tolower(response) == 'y'){
+
         if(mode ==1){
+
             printf("\033c");
+
             human_guess();
+
         }else{
+
             printf("\033c");
+
             computer_guess();
         }
     }
 }
 
 void human_guess() {
+
     int target, guess;
+
     char response;
+
     int tries = 1;
+
     bool validInput;
 
-    // Seed the random number generator
     srand(time(NULL));
 
-    // Generate a random number between 1 and 999
+    // Generate a random number between 1 and 999.
     target = rand() % 999 + 1;
     
     intro_number_guess();
@@ -220,39 +241,59 @@ void human_guess() {
 
         // Check if the guess is correct
         if (guess == target) {
+
             if(tries <=5){
-                printf("\n\n%sYou lucky..... :)\n\n%s",PINK,RESET);
+
+                printf("\n\n%sYou lucky..... :)\n\n %s",PINK,RESET);
+
                 printf("%sTries:%s %d %s\n",WHITE,GREEN, tries,RESET);
+
                 printf("%sScore:%s Lucky%s\n",WHITE,PINK,RESET);
+
                 break;
             }
             else if(tries <=10){
+
                 printf("%s\nCongratulations! I see you know the Algorithm.\n\n%s",GREEN,RESET);
+
                 printf("%sTries:%s %d %s\n",WHITE,GREEN, tries,RESET);
+
                 printf("%sScore:%s Excellent%s\n",WHITE,GREEN,RESET);
+
                 break;
             }
             else if(20>=tries>=10){
+
                 printf("%s\nCongrats! You found the number, not bad, not bad :)\n\n%s",GREEN,RESET);
+
                 printf("%sTries:%s %d %s\n",WHITE,GREEN, tries,RESET);
+
                 printf("%sScore:%s Good%s\n",WHITE,BLUE,RESET);
+
                 break;
             }
             else{
 
                 printf("%s\nDont you dare to play this game again bruhhhh -_- %s\n\n",RED,RESET);
+
                 printf("%sTries:%s %d %s\n",WHITE,RED, tries,RESET);
+
                 printf("%sScore:%s Terrible%s\n",WHITE,RED,RESET);
+
                 break;
             }
         } else if (guess < target) {
+
             printf("%sMy number is greater than %s%d.%s\n",WHITE,GREEN, guess,RESET);
+
         } else {
+
             printf("%sMy number is smaller than %s%d.%s\n",WHITE,PINK, guess,RESET);
 
         }
         
         tries++;
+
     } while (true);
 
     play_again(1);
@@ -263,10 +304,15 @@ void human_guess() {
 
 // Function to play with computer.
 void computer_guess() {
+
     int target, guess;
+
     int min = 1; 
+
     int max = 999; 
+
     int tries = 1;
+
     bool validInput;
 
     intro_number_guess();
@@ -274,12 +320,18 @@ void computer_guess() {
     // Get the input (the number for the computer to guess).
     do {
         printf("\n%sEnter a number for the computer to guess (1-999): %s", WHITE, RESET);
+
         if (scanf("%d", &target) == 1 && target >= 1 && target <= 999) {
+
             validInput = true;
+
         } else {
+
             printf("%sInvalid input. Please enter a number between 1 and 999.%s\n", RED, RESET);
+
             // Clear the input buffer.
-            while (getchar() != '\n');
+            clear_input_buffer();
+
             validInput = false;
         }
     } while (!validInput);
@@ -293,23 +345,71 @@ void computer_guess() {
         printf("\n%sComputer guesses:%s %d%s\n",WHITE,GREEN, guess,RESET);
 
         // Get the user's feedback.
+
         char feedback;
+
+        //Prevent user from lying, because humans are well known for it :).
+
         do {
+            
             printf("%sGive feedback 'f'(found),'g'(greater),'s'(smaller): %s",WHITE,RESET);
+
             scanf(" %c", &feedback);
+
+            if(feedback != 'f' && guess == target){
+
+                printf("%sAren't you a little lier?.%s\n",YELLOW,RESET);
+
+                continue;
+
+            }else if(feedback == 'g' && guess > target){
+
+                printf("%sThat smells like a lie!%s\n",YELLOW,RESET);
+
+                continue;
+
+            }else if(feedback == 's' && guess < target){
+
+                printf("%sWhen you gonna stop lying?%s\n",YELLOW,RESET);
+
+                continue;
+            }
         } while (feedback != 'f' && feedback != 'g' && feedback != 's');
 
         // Adjust the range based on user's feedback.
         if (feedback == 'f') {
-            printf("%sThe computer found the number %d in %d tries.%s\n", GREEN, target, tries, RESET);
+
+            printf("%s\nI found the number %s%d%s in %s%d%s tries.%s\n\n",WHITE, GREEN,target,WHITE ,GREEN, tries,WHITE, RESET);
+
+            printf("%sI already new it from the begining bruhhh%s\n", PINK, RESET);
+
             break;
-        } else if (feedback == 'g') {
+        
+        }else if(feedback != 'f' && guess == target){
+
+            continue;
+        }
+        else if(feedback == 'g' && guess > target){
+
+            continue;
+        }else if(feedback == 's' && guess < target){
+
+            continue;
+        }
+        else if (feedback == 'g') {
+
             min = guess + 1; // Adjust the minimum range
+
+            tries++;
+
         } else {
+
             max = guess - 1; // Adjust the maximum range
+
+            tries++;
         }
         
-        tries++;
+
     } while (min <= max);
 
     play_again(2);
