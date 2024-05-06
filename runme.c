@@ -261,6 +261,11 @@ void pw5_start(){
         else if(ex_num==2){
             system("clear");
             pw5_ex2_start();
+        }else if(ex_num ==3){
+            intro_bastra();
+            printf("\n%sCode is not complete yet :(%s\n\n", YELLOW,RESET);
+            printf("%sYou can check the uncomplete code in %spws_lib/pw5/pw5.h line: 422%s\n\n\n",WHITE,BLUE,RESET);
+            play_bastra();
         }
         else if(ex_num==7){
             pws_menu();
@@ -299,6 +304,7 @@ void pw5_ex2_start(){
             pw5_ex2_start();
         }
         else if(ex_num==7){
+            system("clear");
             pw5_start();
         }
         else if(ex_num==8){
