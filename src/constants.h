@@ -56,7 +56,7 @@ char *RESET = "\033[0m";
 
 
 //Version information.
-char *VERSION="1.5.6    ";
+char *VERSION="1.6.0    ";
 
 // Function to show the fancy main menu :).
 void show_main_menu() {
