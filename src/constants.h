@@ -1,3 +1,11 @@
+/*
+ * File:         constants.h
+ * Author:       Fuad Alizada
+ * Date:         March 06, 2024
+ * Description:  Constant variables and functions for the project. 
+ */
+
+
 #include <stdio.h>
 #include <stdbool.h> 
 #include <string.h>
@@ -59,10 +67,10 @@ void show_main_menu() {
     printf("2. PW_2 (Available)\n");
     printf("3. PW_3 (Available)\n");
     printf("4. PW_4 (Available)\n");
-    printf("%s5. PW_5 (new)%s\n",GREEN,RESET);
+    printf("5. PW_5 (Available)\n");
+    printf("%s6. PW_6 (new)\n%s",GREEN,RESET);
     printf("%s", WHITE);
-    printf("6. PW_6 (Coming soon)\n");
-    printf("7. PW_7 (Coming soon)\n");
+    printf("7. Final Project (github link)\n");
     printf("%s8. Go back%s\n",YELLOW,RESET);
     printf("%s9. Exit%s\n",RED,RESET);
     printf("\n");

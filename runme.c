@@ -6,7 +6,7 @@
 #include <unistd.h>
 
 //Local libs
-#include "pws_lib/pw5/pw5.h"
+#include "pws_lib/pw6/pw6.h"
 #include "src/terminal_art/controller.h"
 
 // Functions
@@ -321,6 +321,9 @@ void pw5_ex2_start(){
     }
 }
 
+//PW 6 
+
+
 // Terminal art
 void terminal_art_start(){
     terminal_art_menu();
@@ -446,12 +449,15 @@ void pws_menu(){
             system("clear");
             pw5_start();
         }
+        else if(option==6){   
+            pw_6();
+        }
+        else if(option==7){
+            system("open https://github.com/martian58/bookery");
+        }
         else if(option==15){
             system("clear");
             standard_deviation_start();
-        }
-        else if(option>5 && option<8){
-            printf("%sComing soon!%s\n",YELLOW,RESET);
         }
         else {
             printf("%sInvalid option!%s\n",RED,RESET);
